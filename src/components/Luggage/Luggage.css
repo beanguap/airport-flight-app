@@ -1,0 +1,64 @@
+.luggage-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .luggage-shelf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .luggage-item {
+    width: 150px;
+    text-align: center;
+  }
+  
+  .luggage-image-container {
+    height: 200px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .luggage-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+  
+  .luggage-name {
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .luggage-shelf {
+      justify-content: center;
+    }
+  
+    .luggage-item {
+      width: 120px;
+    }
+  
+    .luggage-image-container {
+      height: 160px;
+    }
+  }
