@@ -1,4 +1,4 @@
-import Luggage from '../../components/Luggage/Luggage';
+import Luggage from '../components/Luggage/Luggage';
 
 const LuggagePage = () => {
   return (
