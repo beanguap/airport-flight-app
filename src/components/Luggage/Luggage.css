@@ -1,4 +1,5 @@
-.luggage-container {
+/* General container styling for the Luggage page */
+.luggage-page {
     padding: 20px;
     background-color: #f5f5f5;
     min-height: 100vh;
@@ -7,255 +8,212 @@
     align-items: center;
   }
   
-  h1 {
-    font-size: 28px;
-    color: #333;
+  /* Title styling */
+  .luggage-page h1 {
+    font-size: 2rem;
     margin-bottom: 20px;
   }
   
+  /* Navbar styling */
+  .luggage-navbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px; /* Adjust max-width as needed */
+  }
+  
+  /* Navbar select styling */
+  .luggage-navbar select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Luggage shelf styling */
   .luggage-shelf {
     display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
+    gap: 20px;
     justify-content: center;
-    max-width: 1200px;
-  }
-  
-  .luggage-item {
-    width: 250px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .luggage-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .luggage-image-container {
-    height: 300px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    transition: box-shadow 0.3s ease;
+    flex-wrap: wrap;
+    max-width: 100%;
+    position: relative;
   }
   
-  .luggage-image-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* Luggage item styling */
+  .luggage-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(33.333% - 40px);
+    max-width: calc(33.333% - 40px);
   }
   
+  /* Luggage image container styling */
+  .luggage-image-container {
+    width: 100px;
+    margin-bottom: 10px;
+  }
+  
+  /* Luggage image styling */
   .luggage-image {
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
+    max-width: 100%;
+    height: auto;
   }
   
-  .luggage-item:hover .luggage-image {
-    transform: scale(1.1);
-  }
-  
+  /* Luggage name styling */
   .luggage-name {
-    font-size: 18px;
-    color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
   
+  /* Luggage info styling */
+  .luggage-info {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+  
+  /* Add luggage button styling */
+  .add-luggage-button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Modal overlay styling */
   .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     z-index: 1000;
   }
   
+  /* Modal content styling */
   .modal-content {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
   }
   
+  /* Modal header styling */
   .modal-content h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 24px;
     margin-bottom: 20px;
   }
   
+  /* Item list styling */
   .item-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 10px;
+  }
+  
+  /* Item styling */
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Item quantity input styling */
+  .item input[type="number"] {
+    width: 50px;
+    text-align: center;
+  }
+  
+  /* Add item section styling */
+  .add-item {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
   }
   
-  .item {
-    display: contents;
-  }
-  
-  .item span {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .item input[type="number"] {
-    width: 50px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    text-align: center;
-    transition: border-color 0.2s ease;
-  }
-  
-  .item input[type="number"]:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .item button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .item button:hover {
-    background-color: #c0392b;
-  }
-  
-  .add-item {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .add-item input[type="text"] {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
+  /* Input fields styling in add item section */
+  .add-item input[type="text"],
   .add-item input[type="number"] {
-    width: 50px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    margin-right: 10px;
+    padding: 5px;
+    flex: 1;
   }
   
-  .add-item button {
+  /* Button styling */
+  .close-button, .submit-button {
     background-color: #007bff;
-    color: white;
-    border: none;
+    color: #fff;
     padding: 10px 20px;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    margin-top: 10px;
   }
   
-  .add-item button:hover {
-    background-color: #0056b3;
-  }
-  
+  /* Close button specific styling */
   .close-button {
-    margin-top: 20px;
-    align-self: flex-end;
-    background-color: #555;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    background-color: #dc3545;
+    margin-left: 10px;
   }
   
-  .close-button:hover {
-    background-color: #333;
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 15px;
   }
   
-  /* Media Queries for Responsive Design */
+  /* Form group label styling */
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
   
-  /* Large Laptops and Desktops */
-  @media (min-width: 1200px) {
+  /* Form group input and select styling */
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 768px) {
     .luggage-shelf {
-      gap: 60px;
+      justify-content: center;
     }
   
     .luggage-item {
-      width: 300px;
+      width: 120px;
     }
   
     .luggage-image-container {
-      height: 350px;
-    }
-  }
-  
-  /* Small Laptops and Tablets */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .luggage-shelf {
-      gap: 30px;
-    }
-  
-    .luggage-item {
-      width: 200px;
-    }
-  
-    .luggage-image-container {
-      height: 250px;
-    }
-  }
-  
-  /* Smartphones */
-  @media (max-width: 767px) {
-    .luggage-shelf {
-      gap: 20px;
-    }
-  
-    .luggage-item {
-      width: 150px;
-    }
-  
-    .luggage-image-container {
-      height: 200px;
+      height: 160px;
     }
   
     .modal-content {
-      padding: 20px;
       width: 95%;
-    }
-  
-    .add-item {
-      flex-direction: column;
-    }
-  
-    .add-item input, .add-item button {
-      width: 100%;
+      padding: 20px;
     }
   }
   
