@@ -2,6 +2,9 @@
     padding: 20px;
     background-color: #f5f5f5;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   h1 {
@@ -13,52 +16,246 @@
   .luggage-shelf {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1200px;
   }
   
   .luggage-item {
-    width: 150px;
+    width: 250px;
     text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .luggage-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
   
   .luggage-image-container {
-    height: 200px;
+    height: 300px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .luggage-image-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
   
   .luggage-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  .luggage-item:hover .luggage-image {
+    transform: scale(1.1);
   }
   
   .luggage-name {
-    font-size: 14px;
+    font-size: 18px;
     color: #333;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   
-  /* Responsive design */
-  @media (max-width: 768px) {
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .item {
+    display: contents;
+  }
+  
+  .item span {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .item input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    transition: border-color 0.2s ease;
+  }
+  
+  .item input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .item button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .item button:hover {
+    background-color: #c0392b;
+  }
+  
+  .add-item {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .add-item input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .add-item input[type="number"] {
+    width: 50px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .add-item button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-item button:hover {
+    background-color: #0056b3;
+  }
+  
+  .close-button {
+    margin-top: 20px;
+    align-self: flex-end;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .close-button:hover {
+    background-color: #333;
+  }
+  
+  /* Media Queries for Responsive Design */
+  
+  /* Large Laptops and Desktops */
+  @media (min-width: 1200px) {
     .luggage-shelf {
-      justify-content: center;
+      gap: 60px;
     }
   
     .luggage-item {
-      width: 120px;
+      width: 300px;
     }
   
     .luggage-image-container {
-      height: 160px;
+      height: 350px;
     }
   }
+  
+  /* Small Laptops and Tablets */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .luggage-shelf {
+      gap: 30px;
+    }
+  
+    .luggage-item {
+      width: 200px;
+    }
+  
+    .luggage-image-container {
+      height: 250px;
+    }
+  }
+  
+  /* Smartphones */
+  @media (max-width: 767px) {
+    .luggage-shelf {
+      gap: 20px;
+    }
+  
+    .luggage-item {
+      width: 150px;
+    }
+  
+    .luggage-image-container {
+      height: 200px;
+    }
+  
+    .modal-content {
+      padding: 20px;
+      width: 95%;
+    }
+  
+    .add-item {
+      flex-direction: column;
+    }
+  
+    .add-item input, .add-item button {
+      width: 100%;
+    }
+  }
+  
