@@ -146,7 +146,7 @@ const Luggage = () => {
                       onChange={(e) => handleQuantityChange(item.id, e.target.value)}
                       min="0"
                     />
-                    <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                    <button className="remove-button" onClick={() => handleRemoveItem(item.id)}>Remove</button>
                   </li>
                 ))}
               </ul>

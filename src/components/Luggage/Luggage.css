@@ -207,7 +207,7 @@
 /* Remove button specific styling */
 .remove-button {
     background-color: #dc3545;
-    border-radius: 50%; /* Make the button round */
+    border-radius: 10%; /* Make the button round */
     padding: 10px; /* Adjust padding to make the button larger or smaller */
     color: white;
     border: none;
