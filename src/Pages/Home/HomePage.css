@@ -13,19 +13,19 @@
     flex-direction: column;
     gap: 30px;
     width: 100%;
-    max-width: 700px; /* Increased from 600px */
+    max-width: 700px;
   }
   
   .section {
     position: relative;
     width: 100%;
-    height: 300px; /* Adjust height as needed */
-    overflow: hidden; /* Ensures no overflow */
-    border-radius: 15px; /* Increased from 10px for a slightly softer look */
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fff; /* Ensures background color is white */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    background-color: #fff;
+    cursor: pointer;
   }
   
   .section:hover {
@@ -34,37 +34,55 @@
   }
   
   .section-image-container {
-    position: absolute; /* Ensure it covers the section */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Ensures no overflow */
+    overflow: hidden;
   }
   
   .section-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image covers the container */
-    object-position: center; /* Centers the image within the container */
+    object-fit: cover;
+    object-position: center;
+    transition: filter 0.3s ease;
+  }
+  
+  .section-title-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   
   .section-title {
-    position: absolute;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Center the title */
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    padding: 10px; /* Padding around the text */
-    border-radius: 5px; /* Rounded corners for the background */
-    color: #000; /* Text color */
-    font-size: 1.5em; /* Adjust font size as needed */
-    z-index: 10; /* Ensures the text is above the image */
-    transition: opacity 0.3s ease;
-    opacity: 0; /* Hidden by default */
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    z-index: 2;
+    padding: 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+  }
+  
+  .section:hover .section-image {
+    filter: blur(5px);
+  }
+  
+  .section:hover .section-title-container {
+    opacity: 1;
   }
   
   .section:hover .section-title {
-    opacity: 1; /* Show text on hover */
+    transform: scale(1.1);
   }
-  

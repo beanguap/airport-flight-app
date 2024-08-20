@@ -1,4 +1,3 @@
-/* General container styling for the Luggage page */
 .luggage-page {
     padding: 20px;
     background-color: #f5f5f5;
@@ -8,34 +7,46 @@
     align-items: center;
 }
 
-/* Title styling */
 .luggage-page h1 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
-/* Navbar styling */
 .luggage-navbar {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
     justify-content: center;
+    align-items: center;
     border-radius: 10px;
     background-color: #fff;
     padding: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 1200px; /* Adjust max-width as needed */
+    max-width: 1200px;
 }
 
-/* Navbar select styling */
 .luggage-navbar select {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-/* Luggage shelf styling */
+.add-luggage-button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.add-luggage-button:hover {
+    background-color: #0056b3;
+}
+
 .luggage-shelf {
     display: flex;
     gap: 20px;
@@ -44,10 +55,9 @@
     flex-wrap: wrap;
     max-width: 100%;
     position: relative;
-    margin-top: 20px; /* Ensure spacing from navbar */
+    margin-top: 20px;
 }
 
-/* Luggage item styling */
 .luggage-item {
     background-color: #fff;
     padding: 20px;
@@ -57,55 +67,35 @@
     flex-basis: calc(33.333% - 40px);
     max-width: auto;
     min-width: 300px;
-    box-sizing: border-box; /* Ensure padding is included in width */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* For button positioning */
+    position: relative;
 }
 
-/* Luggage image container styling */
 .luggage-image-container {
     width: 100px;
-    height: 100px; /* Fixed height for images */
+    height: 100px;
     margin-bottom: 10px;
 }
 
-/* Luggage image styling */
 .luggage-image {
     max-width: 100%;
-    max-height: 100%; /* Ensure images fit within container */
+    max-height: 100%;
     height: auto;
 }
 
-/* Luggage name styling */
 .luggage-name {
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Luggage info styling */
 .luggage-info {
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
 
-/* Add luggage button styling */
-.add-luggage-button {
-    background-color: #007bff;
-    color: #fff;
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    position: fixed; /* Fixed position */
-    right: 20px;
-    bottom: 20px;
-    z-index: 1000; /* Ensure it’s on top */
-}
-
-/* Modal overlay styling */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -119,7 +109,6 @@
     z-index: 1000;
 }
 
-/* Modal content styling */
 .modal-content {
     background-color: #fff;
     padding: 20px;
@@ -127,101 +116,91 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
-    overflow: hidden; /* Prevent content overflow */
+    overflow: hidden;
 }
 
-/* Modal header styling */
 .modal-content h2 {
     margin-bottom: 20px;
-    font-size: 1.5rem; /* Adjust font size for better readability */
+    font-size: 1.5rem;
 }
 
-/* Item list styling */
 .item-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-/* Item styling */
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px; /* Increase margin for spacing */
-    padding: 10px; /* Add padding for modern look */
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 8px; /* Rounded corners for a modern look */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Item quantity input styling */
 .item input[type="number"] {
-    width: 60px; /* Increase width for better visibility */
+    width: 60px;
     text-align: center;
-    border: 1px solid #ddd; /* Light border for input */
-    border-radius: 5px; /* Rounded corners for input */
-    padding: 5px; /* Add padding inside input */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-/* Add item section styling */
 .add-item {
     display: flex;
-    flex-direction: column; /* Stack inputs vertically */
-    gap: 15px; /* Increase gap for spacing */
+    flex-direction: column;
+    gap: 15px;
     margin-top: 20px;
 }
 
-/* Input fields styling in add item section */
 .add-item input[type="text"],
 .add-item input[type="number"] {
-    padding: 10px; /* Increase padding for comfort */
-    border: 1px solid #ddd; /* Light border for inputs */
-    border-radius: 5px; /* Rounded corners for inputs */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-/* Adjust button styling for add item section */
 .add-item button {
     margin-top: 10px;
     padding: 10px 20px;
     border-radius: 5px;
 }
 
-/* Close button specific styling */
 .close-button {
     background-color: #dc3545;
-    border-radius: 10%; /* Make the button round */
-    padding: 10px; /* Adjust padding to make the button larger or smaller */
+    border-radius: 5px;
+    padding: 10px;
     margin-top: 10px;
     color: white;
     border: none;
     cursor: pointer;
-    transition: all 0.3s; /* For smooth hover effects */
+    transition: all 0.3s;
 }
 
 .close-button:hover {
-    background-color: #c82333; /* Darker shade for hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #c82333;
+    transform: scale(1.05);
 }
 
-/* Remove button specific styling */
 .remove-button {
     background-color: #dc3545;
-    border-radius: 10%; /* Make the button round */
-    padding: 10px; /* Adjust padding to make the button larger or smaller */
+    border-radius: 5px;
+    padding: 10px;
     color: white;
     border: none;
     cursor: pointer;
-    transition: all 0.3s; /* For smooth hover effects */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add a subtle shadow for depth */
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .remove-button:hover {
-    background-color: #c82333; /* Darker shade for hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #c82333;
+    transform: scale(1.05);
 }
 
-/* Responsive styling for smaller screens */
 @media (max-width: 768px) {
     .luggage-shelf {
         flex-direction: column;
@@ -231,14 +210,13 @@
     .luggage-item {
         width: 100%;
         max-width: 400px;
-    }
+    } 
 
     .luggage-image-container {
-        height: 120px; /* Adjusted height */
+        height: 120px;
     }
 
     .modal-content {
         width: 95%;
-        padding: 20px;
     }
 }
