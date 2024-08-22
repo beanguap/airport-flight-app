@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     justify-content: space-around;
-    background-color: #f8f8f8;
+    background-color: #1E1E1E;
     padding: 10px 0;
     position: fixed;
     bottom: 0;

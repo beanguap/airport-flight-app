@@ -1,7 +1,7 @@
 /* General Page Styles */
 .luggage-page {
     padding: 20px;
-    background-color: #39393A;
+    background-color: #121212;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,13 +12,13 @@
     font-size: 2.5rem;
     margin-bottom: 30px;
     font-weight: 600;
-    color: #333;
+    color: #E0E0E0 ;
     text-align: center;
     transition: color 0.3s ease;
 }
 
 .luggage-page h1:hover {
-    color: #007bff;
+    color: #FF9500;
 }
 
 /* Navbar Styles */
@@ -29,7 +29,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 12px;
-    background-color: #fff;
+    background-color: #1E1E1E;
     padding: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -47,19 +47,20 @@
     border: 1px solid #ccc;
     font-size: 1rem;
     color: #333;
-    background-color: #f0f0f0;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
     transition: border-color 0.3s ease;
 }
 
 .luggage-navbar select:focus {
-    border-color: #007bff;
+    border-color: #FF9500;
     outline: none;
 }
 
 /* Add Luggage Button */
 .add-luggage-button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #FF9500;
+    color: #E0E0E0;
     font-size: 1.8rem;
     padding: 10px 20px;
     border-radius: 10%;
@@ -70,7 +71,7 @@
 }
 
 .add-luggage-button:hover {
-    background-color: #0056b3;
+    background-color: #FF9500;
     transform: rotate(90deg);
 }
 
@@ -86,7 +87,7 @@
 }
 
 .luggage-item {
-    background-color: #E6E6E6;
+    background-color: #1E1E1E;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
@@ -119,13 +120,13 @@
     font-weight: bold;
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #333;
+    color: #FF9500;
 }
 
 .luggage-info {
     font-size: 1rem;
     margin-bottom: 8px;
-    color: #666;
+    color: #E0E0E0;
 }
 
 /* Modal Styles */
