@@ -393,4 +393,86 @@
         font-size: 0.9rem;
         padding: 10px;
     }
+
+    /* Modal Styles */
+.modal-content {
+    background-color: #1E1E1E;
+    padding: 15px 25px; /* Reduced padding for a more compact look */
+    border-radius: 12px; /* Slightly reduced border-radius for a modern look */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* More pronounced shadow for modern feel */
+    max-width: 500px; /* Set a fixed width for the modal */
+    width: 100%;
+    max-height: 80vh; /* Adjusted height for more compact view */
+    overflow-y: auto;
+    transform: scale(0.9);
+    animation: scaleUp 0.3s forwards;
+}
+
+.modal-content h2 {
+    margin-bottom: 10px; /* Less margin for a compact appearance */
+    font-size: 1.6rem; /* Slightly smaller font size */
+    color: #FF9500;
+}
+
+/* Input Fields in Modal */
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content input[type="date"] {
+    width: 100%;
+    padding: 8px; /* Smaller padding for input fields */
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #3A3A3A;
+    background-color: #2E2E2E;
+    color: #E0E0E0;
+    font-size: 0.95rem;
+}
+
+/* Buttons in Modal */
+.modal-content button {
+    padding: 10px 15px; /* Compact button padding */
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-content .close-button {
+    background-color: #E57373;
+}
+
+.modal-content .create-button {
+    background-color: #81C784;
+    margin-right: 10px;
+}
+
+.modal-content .close-button:hover,
+.modal-content .create-button:hover {
+    transform: scale(1.05);
+}
+
+/* Compact the entire modal form */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reduce gaps between form elements */
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+    .modal-content {
+        max-width: 90%;
+        padding: 10px 15px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .modal-content button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
 }

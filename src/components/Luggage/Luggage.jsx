@@ -174,22 +174,12 @@ const Luggage = () => {
           <div className="modal-overlay">
             <div className="modal-content">
               <h2>Create New Luggage</h2>
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const newLuggage = {
-                  type: formData.get('type'),
-                  owner: formData.get('owner'),
-                  tripName: formData.get('tripName'),
-                  date: formData.get('date'),
-                };
-                handleCreateLuggage(newLuggage);
-              }}>
+              <form onSubmit={handleCreateLuggage} className="form">
                 <div className="form-group">
                   <label htmlFor="type">Luggage Type:</label>
                   <select name="type" id="type" required>
-                    {luggageItems.map(item => (
-                      <option key={item.id} value={item.name}>{item.name}</option>
+                    {luggageItems.map(({ id, name }) => (
+                      <option key={id} value={name}>{name}</option>
                     ))}
                   </select>
                 </div>
