@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CreateLuggageModal from './CreateLuggageModal';
 import './Luggage.css';
 
 const Luggage = () => {
@@ -170,37 +171,15 @@ const Luggage = () => {
           </div>
         )}
 
-        {isCreateModalOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <h2>Create New Luggage</h2>
-              <form onSubmit={handleCreateLuggage} className="form">
-                <div className="form-group">
-                  <label htmlFor="type">Luggage Type:</label>
-                  <select name="type" id="type" required>
-                    {luggageItems.map(({ id, name }) => (
-                      <option key={id} value={name}>{name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="owner">Owner:</label>
-                  <input type="text" id="owner" name="owner" required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="tripName">Trip Name:</label>
-                  <input type="text" id="tripName" name="tripName" required />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="date">Date:</label>
-                  <input type="date" id="date" name="date" required />
-                </div>
-                <button type="submit" className="submit-button">Create</button>
-                <button type="button" className="close-button" onClick={handleCloseCreateModal}>Cancel</button>
-              </form>
-            </div>
-          </div>
-        )}
+        
+{isCreateModalOpen && (
+  <CreateLuggageModal 
+    isOpen={isCreateModalOpen}
+    onClose={handleCloseCreateModal}
+    onSubmit={handleCreateLuggage}
+    luggageItems={luggageItems}
+  />
+)}
       </div>
     </div>
   );
