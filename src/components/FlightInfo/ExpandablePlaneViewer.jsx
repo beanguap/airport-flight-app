@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import planeModelFile from '../../assets/boeing767/scene.gltf';
+import PlaneModel from './PlaneModel';
 import './ExpandablePlaneViewer.css';
 
 export default function ExpandablePlaneViewer() {
