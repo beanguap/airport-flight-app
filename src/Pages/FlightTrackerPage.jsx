@@ -1,5 +1,6 @@
 import ExpandablePlaneViewer from '../components/FlightInfo/ExpandablePlaneViewer';
 
+
 function FlightInfo() {
   return (
     <div>
