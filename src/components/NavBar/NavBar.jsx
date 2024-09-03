@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import AirplaneIcon from './assets/airplane.svg';
 import './NavBar.css';
 
 const NavBar = () => {
