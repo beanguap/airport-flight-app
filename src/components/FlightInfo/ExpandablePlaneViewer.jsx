@@ -35,8 +35,12 @@ const ExpandablePlaneViewer = () => {
         </button>
       </div>
       <PlaneModel
-        width={isExpanded ? "100%" : "100%"}
-        height={isExpanded ? "calc(90vh - 60px)" : "240px"}
+        width={isExpanded ? "100%" : 100} // Use "100%" for width as string
+        height={isExpanded ? undefined : 240} // Use undefined for calc or percentage heights
+        style={{
+          height: isExpanded ? 'calc(90vh - 60px)' : undefined,
+          width: isExpanded ? '100%' : '100%',
+        }}
       />
     </motion.div>
   );
