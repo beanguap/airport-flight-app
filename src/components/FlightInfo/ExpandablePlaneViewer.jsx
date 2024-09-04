@@ -1,6 +1,7 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PlaneModel from './PlaneModel';
+import './ExpandablePlaneViewer.css'; // Import the CSS file
 
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -16,17 +17,17 @@ const ExpandablePlaneViewer = () => {
 
   return (
     <motion.div
-      className="expandable-plane-viewer bg-white p-4 relative"
+      className="expandable-plane-viewer"
       variants={containerVariants}
       initial="small"
       animate={isExpanded ? "large" : "small"}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Flight Tracker</h2>
+      <div className="header">
+        <h2 className="title">Flight Tracker</h2>
         <button
           onClick={toggleExpand}
-          className="expand-button bg-gray-200 px-3 py-1 rounded-full text-sm"
+          className="expand-button"
           aria-expanded={isExpanded}
           aria-label={isExpanded ? "Shrink plane viewer" : "Expand plane viewer"}
         >

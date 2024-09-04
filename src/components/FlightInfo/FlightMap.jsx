@@ -1,6 +1,7 @@
-import  { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
+import './FlightMap.css'; // Import the CSS file
 
 const FlightMap = () => {
   const cesiumContainer = useRef(null);
@@ -9,7 +10,9 @@ const FlightMap = () => {
   useEffect(() => {
     if (cesiumContainer.current) {
       viewer.current = new Cesium.Viewer(cesiumContainer.current, {
-        terrainProvider: Cesium.createWorldTerrain(),
+        terrainProvider: new Cesium.CesiumTerrainProvider({
+          url : Cesium.IonResource.fromAssetId(1) // Default asset ID for Cesium World Terrain
+        }),
         animation: false,
         baseLayerPicker: false,
         fullscreenButton: false,
@@ -24,8 +27,8 @@ const FlightMap = () => {
       });
 
       // Example: Add a flight path
-      const start = Cesium.Cartesian3.fromDegrees(-74.006, 40.7128, 1000);
-      const end = Cesium.Cartesian3.fromDegrees(2.3522, 48.8566, 1000);
+      const start = Cesium.Cartesian3.fromDegrees(-74.006, 40.7128, 1000); // New York City
+      const end = Cesium.Cartesian3.fromDegrees(2.3522, 48.8566, 1000); // Paris
 
       viewer.current.entities.add({
         polyline: {
@@ -46,9 +49,9 @@ const FlightMap = () => {
   }, []);
 
   return (
-    <div className="flight-map bg-white rounded-2xl shadow-lg overflow-hidden">
-      <h3 className="text-xl font-semibold p-4 bg-gray-50">Flight Route</h3>
-      <div ref={cesiumContainer} style={{ height: '500px' }} />
+    <div className="flight-map">
+      <h3 className="flight-map-title">Flight Route</h3>
+      <div ref={cesiumContainer} className="cesium-container" />
     </div>
   );
 };

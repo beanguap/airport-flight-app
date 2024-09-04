@@ -1,0 +1,24 @@
+/* FlightMap.css */
+
+.flight-map {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+  }
+  
+  .flight-map-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 16px;
+    background-color: #f0f0f0;
+    margin: 0;
+  }
+  
+  .cesium-container {
+    height: 500px;
+    width: 100%;
+  }
+  
