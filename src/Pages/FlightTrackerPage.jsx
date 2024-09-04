@@ -1,14 +1,16 @@
 
+import ExpandablePlaneViewer from '../components/FlightInfo/ExpandablePlaneViewer';
+// ... other imports
 
-
-function FlightInfo() {
+const FlightTrackerPage = () => {
   return (
-    <div>
-      <h2>Flight Information</h2>
-      
-      {/* Other flight information */}
+    <div className="flight-tracker-page">
+      <h1>Flight Tracker</h1>
+      {/* ... other components */}
+      <ExpandablePlaneViewer />
+      {/* ... other components */}
     </div>
   );
-}
+};
 
-export default FlightInfo;
+export default FlightTrackerPage;
