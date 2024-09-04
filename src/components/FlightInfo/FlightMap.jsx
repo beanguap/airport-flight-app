@@ -1,35 +1,29 @@
 import { useEffect, useRef } from 'react';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
-import './FlightMap.css'; // Import the CSS file
+import './FlightMap.css';
 
 const FlightMap = () => {
   const cesiumContainer = useRef(null);
   const viewer = useRef(null);
 
   useEffect(() => {
-    // Set Cesium Ion token using Vite environment variable
-    Cesium.Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_ION_TOKEN;
+    const cesiumToken = import.meta.env.VITE_CESIUM_ION_TOKEN;
+    if (cesiumToken) {
+      Cesium.Ion.defaultAccessToken = cesiumToken;
+    } else {
+      console.error('Cesium Ion token not found. Please set VITE_CESIUM_ION_TOKEN in your environment.');
+      return;
+    }
 
     if (cesiumContainer.current) {
       viewer.current = new Cesium.Viewer(cesiumContainer.current, {
         terrainProvider: new Cesium.CesiumTerrainProvider({
-          url: Cesium.IonResource.fromAssetId(1), // Cesium World Terrain asset ID
+          url: Cesium.IonResource.fromAssetId(1),
         }),
-        animation: true,
-        baseLayerPicker: true,
-        fullscreenButton: true,
-        vrButton: true,
-        geocoder: true,
-        homeButton: true,
-        infoBox: true,
-        sceneModePicker: true,
-        selectionIndicator: true,
-        timeline: true,
-        navigationHelpButton: true,
+        // ... other viewer options ...
       });
 
-      // Set the initial view to a location where the globe should be visible
       viewer.current.camera.setView({
         destination: Cesium.Cartesian3.fromDegrees(-75.10, 39.57, 5000000),
         orientation: {
@@ -39,13 +33,10 @@ const FlightMap = () => {
         },
       });
 
-      // Add a 3D Tileset from Cesium Ion
       const addTileset = async () => {
         try {
-          const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(2275207); // Your asset ID
+          const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(2275207);
           viewer.current.scene.primitives.add(tileset);
-
-          // Adjust the view to the tileset
           viewer.current.zoomTo(tileset);
         } catch (error) {
           console.error('Error loading tileset:', error);
@@ -54,13 +45,12 @@ const FlightMap = () => {
 
       addTileset();
 
-      // Example: Add a flight path
-      const start = Cesium.Cartesian3.fromDegrees(-74.006, 40.7128, 1000); // New York City
-      const end = Cesium.Cartesian3.fromDegrees(2.3522, 48.8566, 1000); // Paris
-
       viewer.current.entities.add({
         polyline: {
-          positions: [start, end],
+          positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+            -74.006, 40.7128, 1000, // New York
+            2.3522, 48.8566, 1000   // Paris
+          ]),
           width: 2,
           material: Cesium.Color.RED,
         },
