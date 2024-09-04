@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { fileURLToPath, URL } from 'url';
-import path from 'path';  // Ensure path is imported correctly
+import path from 'path';
 import cesium from 'vite-plugin-cesium';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -19,23 +19,21 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['cesium'],
+      external: [],
       output: {
-        globals: {
-          cesium: 'Cesium'
-        }
+        globals: {}
       }
     },
     assetsInlineLimit: 0
   },
   resolve: {
     alias: {
-      '@cesium': path.resolve(__dirname, 'node_modules/cesium')
+      '@cesium/engine': path.resolve(__dirname, 'node_modules/@cesium/engine')
     }
   },
   optimizeDeps: {
     exclude: [
-      'cesium',
+      '@cesium/engine'
     ]
   }
 });
