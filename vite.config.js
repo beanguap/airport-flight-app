@@ -1,13 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import wasm from 'vite-plugin-wasm';
+import { fileURLToPath, URL } from 'url';
+import path from 'path';  // Ensure path is imported correctly
+import cesium from 'vite-plugin-cesium';
 
-// https://vitejs.dev/config/
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   plugins: [
     react(),
-    wasm()
+    cesium()
   ],
   server: {
     mimeTypes: {
@@ -17,23 +19,23 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // Cesium has some specific needs for bundling
       external: ['cesium'],
       output: {
-        // Cesium needs to reference its assets correctly
         globals: {
           cesium: 'Cesium'
         }
       }
     },
-    // Ensure the Cesium assets are handled correctly
     assetsInlineLimit: 0
   },
   resolve: {
+    alias: {
+      '@cesium': path.resolve(__dirname, 'node_modules/cesium')
+    }
   },
   optimizeDeps: {
-    include: [
-      'cesium'
+    exclude: [
+      'cesium',
     ]
   }
 });
