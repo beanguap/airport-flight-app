@@ -19,12 +19,42 @@ const FlightMap = () => {
 
       if (cesiumContainer.current) {
         viewer.current = new Cesium.Viewer(cesiumContainer.current, {
-          terrainProvider: new Cesium.CesiumTerrainProvider({
-            url: Cesium.IonResource.fromAssetId(1),
+          terrainProvider: await Cesium.createWorldTerrainAsync({
+            requestVertexNormals: false,
+            requestWaterMask: false
           }),
-          // Add other options here if needed
+          baseLayerPicker: false,
+          geocoder: false,
+          navigationHelpButton: false,
+          sceneModePicker: false,
+          homeButton: false,
+          timeline: false,
+          animation: false,
+          creditsDisplay: false
         });
 
+        // Apply WebGL optimizations
+        const scene = viewer.current.scene;
+        const globe = scene.globe;
+
+        // Terrain optimization
+        globe.maximumScreenSpaceError = 2;
+        globe.tileCacheSize = 100;
+        globe.preloadSiblings = true;
+
+        // Rendering optimization
+        scene.requestRenderMode = true;
+        scene.maximumRenderTimeChange = 0.0;
+
+        // Atmosphere and lighting optimization
+        scene.skyAtmosphere.show = false;
+        scene.fog.enabled = false;
+        globe.enableLighting = false;
+
+        // Disable shadows if not needed
+        viewer.current.shadows = false;
+
+        // Camera setup
         viewer.current.camera.setView({
           destination: Cesium.Cartesian3.fromDegrees(-75.10, 39.57, 5000000),
           orientation: {
@@ -34,26 +64,19 @@ const FlightMap = () => {
           },
         });
 
-        try {
-          const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(2275207);
-          viewer.current.scene.primitives.add(tileset);
-          viewer.current.zoomTo(tileset);
-        } catch (error) {
-          console.error('Error loading tileset:', error);
-        }
-
-        viewer.current.entities.add({
+        // Add flight route
+        const flightRoute = viewer.current.entities.add({
           polyline: {
             positions: Cesium.Cartesian3.fromDegreesArrayHeights([
               -74.006, 40.7128, 1000, // New York
-              2.3522, 48.8566, 1000   // Paris
+              2.3522, 48.8566, 1000 // Paris
             ]),
             width: 2,
             material: Cesium.Color.RED,
           },
         });
 
-        viewer.current.zoomTo(viewer.current.entities);
+        viewer.current.zoomTo(flightRoute);
       }
     };
 

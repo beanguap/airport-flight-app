@@ -13,27 +13,28 @@ export default defineConfig({
   ],
   server: {
     mimeTypes: {
-      'text/javascript': ['.js', '.worker.js'],
-      'application/wasm': ['.wasm']
+      'application/javascript': ['js', 'mjs', 'worker.js'],
+      'application/wasm': ['wasm']
     }
   },
   build: {
     rollupOptions: {
-      external: [],
       output: {
-        globals: {}
+        manualChunks: {
+          cesium: ['cesium']
+        }
       }
     },
-    assetsInlineLimit: 0
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 4000
   },
   resolve: {
     alias: {
-      '@cesium/engine': path.resolve(__dirname, 'node_modules/@cesium/engine')
+      '@': path.resolve(__dirname, './src'),
+      'cesium': path.resolve(__dirname, 'node_modules/cesium')
     }
   },
   optimizeDeps: {
-    exclude: [
-      '@cesium/engine'
-    ]
+    include: ['cesium']
   }
 });
