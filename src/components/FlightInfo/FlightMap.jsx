@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
@@ -11,41 +11,45 @@ const CesiumMap = ({ title, isExpanded, onToggle }) => {
   useEffect(() => {
     const initializeMap = async () => {
       if (mapRef.current && !viewerRef.current) {
-        const terrainProvider = await Cesium.createWorldTerrainAsync({
-          requestVertexNormals: false,
-          requestWaterMask: false
-        });
+        try {
+          const terrainProvider = await Cesium.createWorldTerrainAsync({
+            requestVertexNormals: false,
+            requestWaterMask: false
+          });
 
-        const viewer = new Cesium.Viewer(mapRef.current, {
-          terrainProvider: terrainProvider,
-          baseLayerPicker: false,
-          geocoder: true,
-          navigationHelpButton: false,
-          sceneModePicker: false,
-          homeButton: false,
-          timeline: false,
-          animation: false,
-          creditsDisplay: false
-        });
+          const viewer = new Cesium.Viewer(mapRef.current, {
+            terrainProvider,
+            baseLayerPicker: false,
+            geocoder: true,
+            navigationHelpButton: false,
+            sceneModePicker: false,
+            homeButton: false,
+            timeline: false,
+            animation: false,
+            creditsDisplay: false
+          });
 
-        // Apply WebGL optimizations
-        const scene = viewer.scene;
-        const globe = scene.globe;
+          // Apply WebGL optimizations
+          const scene = viewer.scene;
+          const globe = scene.globe;
 
-        globe.maximumScreenSpaceError = 2;
-        globe.tileCacheSize = 100;
-        globe.preloadSiblings = true;
+          globe.maximumScreenSpaceError = 2;
+          globe.tileCacheSize = 100;
+          globe.preloadSiblings = true;
 
-        scene.requestRenderMode = true;
-        scene.maximumRenderTimeChange = 0.0;
+          scene.requestRenderMode = true;
+          scene.maximumRenderTimeChange = 0.0;
 
-        scene.skyAtmosphere.show = false;
-        scene.fog.enabled = false;
-        globe.enableLighting = false;
+          scene.skyAtmosphere.show = false;
+          scene.fog.enabled = false;
+          globe.enableLighting = false;
 
-        viewer.shadows = false;
+          viewer.shadows = false;
 
-        viewerRef.current = viewer;
+          viewerRef.current = viewer;
+        } catch (error) {
+          console.error('Error initializing Cesium map:', error);
+        }
       }
     };
 
@@ -97,17 +101,25 @@ const FlightMap = () => {
     }
   }, []);
 
+  const handleMap1Toggle = useCallback(() => {
+    setMap1Expanded(prev => !prev);
+  }, []);
+
+  const handleMap2Toggle = useCallback(() => {
+    setMap2Expanded(prev => !prev);
+  }, []);
+
   return (
     <div className="flight-map">
       <CesiumMap
         title="Departure Map"
         isExpanded={map1Expanded}
-        onToggle={() => setMap1Expanded(!map1Expanded)}
+        onToggle={handleMap1Toggle}
       />
       <CesiumMap
         title="Arrival Map"
         isExpanded={map2Expanded}
-        onToggle={() => setMap2Expanded(!map2Expanded)}
+        onToggle={handleMap2Toggle}
       />
     </div>
   );
