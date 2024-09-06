@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect, startTransition } from 'react';
 import { useGLTF } from '@react-three/drei';
+import * as THREE from 'three'; // Import Three.js lights directly
 import PropTypes from 'prop-types';
 import './ExpandablePlaneViewer.css';
 import ErrorBoundary from './ErrorBoundary';
 
-// Memoized PlaneModel Component
 const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensity, castShadow }) {
   const planeRef = useRef();
   const [model, setModel] = useState(null);
   const [error, setError] = useState(null);
 
-  const gltf = useGLTF('/assets/boeing767/scene.gltf'); // Corrected path
+  const gltf = useGLTF(new URL('../assets/boeing-767/source/!.gltf', import.meta.url).href); // Ensure correct path
 
   useEffect(() => {
     startTransition(() => {
@@ -32,6 +32,7 @@ const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensit
 
   return (
     <>
+      {/* Correct usage of lights from THREE */}
       <ambientLight intensity={0.3} />
       <directionalLight
         position={lightPosition}
@@ -59,10 +60,4 @@ PlaneModel.propTypes = {
   castShadow: PropTypes.bool.isRequired,
 };
 
-export default function ExpandablePlaneViewer(props) {
-  return (
-    <ErrorBoundary>
-      <PlaneModel {...props} />
-    </ErrorBoundary>
-  );
-}
+export default PlaneModel;

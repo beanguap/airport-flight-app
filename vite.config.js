@@ -14,7 +14,8 @@ export default defineConfig({
   server: {
     mimeTypes: {
       'application/javascript': ['js', 'mjs', 'worker.js'],
-      'application/wasm': ['wasm']
+      'application/wasm': ['wasm'],
+      'model/gltf+json': ['gltf']
     }
   },
   build: {
