@@ -1,46 +1,61 @@
-import { useState } from 'react';
+import  { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PlaneModel from './PlaneModel';
-import './ExpandablePlaneViewer.css'; // Import the CSS file
+import './ExpandablePlaneViewer.css';
 
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setDimensions({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, [isExpanded]);
+
   const containerVariants = {
     small: { width: '100%', height: '300px', borderRadius: '15px' },
-    large: { width: '100%', height: '90vh', borderRadius: '15px' }
+    large: { width: '100%', height: '90dvh', borderRadius: '15px' }
   };
 
   return (
     <motion.div
+      ref={containerRef}
       className="expandable-plane-viewer"
       variants={containerVariants}
       initial="small"
       animate={isExpanded ? "large" : "small"}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="header">
-        <h2 className="title">Flight Tracker</h2>
-        <button
-          onClick={toggleExpand}
-          className="expand-button"
-          aria-expanded={isExpanded}
-          aria-label={isExpanded ? "Shrink plane viewer" : "Expand plane viewer"}
-        >
-          {isExpanded ? 'Shrink' : 'Expand'}
-        </button>
-      </div>
+      <h2>Flight Tracker</h2>
+      <button onClick={toggleExpand}>
+        {isExpanded ? 'Shrink' : 'Expand'}
+      </button>
       <PlaneModel
-        width={isExpanded ? "100%" : 100} // Use "100%" for width as string
-        height={isExpanded ? undefined : 240} // Use undefined for calc or percentage heights
+        width={dimensions.width}
+        height={dimensions.height - 60} // Subtract 60px for the header and button
         style={{
-          height: isExpanded ? 'calc(90vh - 60px)' : undefined,
-          width: isExpanded ? '100%' : '100%',
+          width: '100%',
+          height: 'calc(100% - 60px)',
         }}
+        lightPosition={[0, 10, 0]}
+        lightIntensity={1.5}
+        castShadow={true}
       />
     </motion.div>
   );
