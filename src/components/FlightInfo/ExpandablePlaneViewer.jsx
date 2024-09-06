@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, startTransition } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
-import * as THREE from 'three'; // Import Three.js lights directly
 import PropTypes from 'prop-types';
 import './ExpandablePlaneViewer.css';
 import ErrorBoundary from './ErrorBoundary';
@@ -13,13 +12,11 @@ const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensit
   const gltf = useGLTF(new URL('../assets/boeing-767/source/!.gltf', import.meta.url).href); // Ensure correct path
 
   useEffect(() => {
-    startTransition(() => {
-      if (gltf) {
-        setModel(gltf.scene);
-      } else {
-        setError('Failed to load the 3D model. Please try again.');
-      }
-    });
+    if (gltf) {
+      setModel(gltf.scene);
+    } else {
+      setError('Failed to load the 3D model. Please try again.');
+    }
   }, [gltf]);
 
   if (error) {
@@ -38,8 +35,8 @@ const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensit
         position={lightPosition}
         intensity={lightIntensity}
         castShadow={castShadow}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadowMapSize-width={1024}
+        shadowMapSize-height={1024}
       />
       <pointLight position={[-5, 5, -5]} intensity={0.5} />
       <spotLight
@@ -60,4 +57,10 @@ PlaneModel.propTypes = {
   castShadow: PropTypes.bool.isRequired,
 };
 
-export default PlaneModel;
+export default function ExpandablePlaneViewer(props) {
+  return (
+    <ErrorBoundary>
+      <PlaneModel {...props} />
+    </ErrorBoundary>
+  );
+}
