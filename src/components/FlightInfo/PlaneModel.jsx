@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import modelPath from '../../assets/boeing767/scene.gltf'; // Adjust this path if necessary
 
-const PlaneModel = ({ width, height }) => {
+const PlaneModel = ({ width, height, lightPosition, lightIntensity, castShadow }) => {
   const mountRef = useRef(null);
   const [error, setError] = useState(null);
 
@@ -19,33 +20,53 @@ const PlaneModel = ({ width, height }) => {
     const loader = new GLTFLoader();
     let controls;
 
-    loader.load(
-      '/src/assets/boeing767/scene.gltf',
-      (gltf) => {
-        scene.add(gltf.scene);
-        // Center and scale the model
-        const box = new THREE.Box3().setFromObject(gltf.scene);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1 / maxDim;
-        gltf.scene.scale.set(scale, scale, scale);
-        gltf.scene.position.sub(center.multiplyScalar(scale));
-        // Set up camera position
-        camera.position.z = 2;
-      },
-      undefined,
-      (error) => {
-        console.error('An error occurred loading the model:', error);
-        setError('Failed to load the 3D model');
-      }
-    );
+    console.log('Attempting to load model from path:', modelPath);
+
+    // Pre-fetch to check if the file can be loaded
+    fetch(modelPath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(data => {
+        console.log('First 100 characters of the file:', data.slice(0, 100));
+        loader.load(
+          modelPath,
+          (gltf) => {
+            console.log('Model loaded successfully:', gltf);
+            scene.add(gltf.scene);
+            // Center and scale the model
+            const box = new THREE.Box3().setFromObject(gltf.scene);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 1 / maxDim;
+            gltf.scene.scale.set(scale, scale, scale);
+            gltf.scene.position.sub(center.multiplyScalar(scale));
+            // Set up camera position
+            camera.position.z = 2;
+          },
+          undefined,
+          (error) => {
+            console.error('An error occurred loading the model:', error);
+            setError(`Failed to load the 3D model: ${error.message}`);
+          }
+        );
+      })
+      .catch(fetchError => {
+        console.error('Fetch error:', fetchError);
+        setError(`Could not fetch the model file: ${fetchError.message}`);
+      });
 
     // Add lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight.position.set(0, 1, 0);
+    directionalLight.position.set(...lightPosition);
+    directionalLight.intensity = lightIntensity;
+    directionalLight.castShadow = castShadow;
     scene.add(directionalLight);
 
     // Add OrbitControls
@@ -77,11 +98,11 @@ const PlaneModel = ({ width, height }) => {
       cancelAnimationFrame(animationFrameId);
       currentRef.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
-      controls.dispose(); // Dispose of controls
-      renderer.dispose(); // Dispose of renderer
-      scene.clear(); // Clear the scene
+      controls.dispose();
+      renderer.dispose();
+      scene.clear();
     };
-  }, [width, height]);
+  }, [width, height, lightPosition, lightIntensity, castShadow]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -92,7 +113,10 @@ const PlaneModel = ({ width, height }) => {
 
 PlaneModel.propTypes = {
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  lightPosition: PropTypes.arrayOf(PropTypes.number).isRequired,
+  lightIntensity: PropTypes.number.isRequired,
+  castShadow: PropTypes.bool.isRequired,
 };
 
 export default PlaneModel;

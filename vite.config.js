@@ -26,7 +26,8 @@ export default defineConfig({
       }
     },
     assetsInlineLimit: 0,
-    chunkSizeWarningLimit: 4000
+    chunkSizeWarningLimit: 4000,
+    sourcemap: true // Enable source maps
   },
   resolve: {
     alias: {
