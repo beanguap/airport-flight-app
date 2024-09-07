@@ -1,71 +1,51 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useGLTF } from '@react-three/drei';
-import PropTypes from 'prop-types';
-import './ExpandablePlaneViewer.css';
-import ErrorBoundary from './ErrorBoundary';
+import { motion } from "framer-motion";
+import { useState } from "react";
+import "./ExpandablePlaneViewer.css"; // Import the CSS file
+import PlaneModel from "./PlaneModel";
 
-const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensity, castShadow }) {
-  const planeRef = useRef();
-  const [model, setModel] = useState(null);
-  const [error, setError] = useState(null);
+const ExpandablePlaneViewer = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  // Construct the URL for the GLTF file relative to the current JS file
-  const gltfPath = new URL('src/assets/boeing-767/source/boeing-767.gltf', import.meta.url).toString();
-  
-  const { scene, error: gltfError } = useGLTF(gltfPath);
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-  useEffect(() => {
-    if (scene) {
-      setModel(scene);
-    } else if (gltfError) {
-      setError('Failed to load the 3D model. Please check the file path or network requests.');
-    }
-  }, [scene, gltfError]);
-
-  if (error) {
-    return <span className="error-message">{error}</span>;
-  }
-
-  if (!model) {
-    return <mesh>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="hotpink" />
-    </mesh>; // Placeholder while loading
-  }
+  const containerVariants = {
+    small: { width: "100%", height: "300px", borderRadius: "15px" },
+    large: { width: "100%", height: "90vh", borderRadius: "15px" },
+  };
 
   return (
-    <>
-      <ambientLight intensity={0.3} />
-      <directionalLight
-        position={lightPosition}
-        intensity={lightIntensity}
-        castShadow={castShadow}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+    <motion.div
+      className="expandable-plane-viewer"
+      variants={containerVariants}
+      initial="small"
+      animate={isExpanded ? "large" : "small"}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
+      <div className="header">
+        <h2 className="title">Flight Tracker</h2>
+        <button
+          onClick={toggleExpand}
+          className="expand-button"
+          aria-expanded={isExpanded}
+          aria-label={
+            isExpanded ? "Shrink plane viewer" : "Expand plane viewer"
+          }
+        >
+          {isExpanded ? "Shrink" : "Expand"}
+        </button>
+      </div>
+      <PlaneModel
+        width={isExpanded ? "100%" : 100} // Use "100%" for width as string
+        height={isExpanded ? undefined : 240} // Use undefined for calc or percentage heights
+        style={{
+          height: isExpanded ? "calc(90vh - 60px)" : undefined,
+          width: isExpanded ? "100%" : "100%",
+        }}
       />
-      <pointLight position={[-5, 5, -5]} intensity={0.5} />
-      <spotLight
-        position={[5, 5, 5]}
-        angle={0.3}
-        penumbra={1}
-        intensity={0.8}
-        castShadow
-      />
-      <primitive object={model} ref={planeRef} />
-    </>
+    </motion.div>
   );
-});
-
-PlaneModel.propTypes = {
-  lightPosition: PropTypes.arrayOf(PropTypes.number),
-  lightIntensity: PropTypes.number,
-  castShadow: PropTypes.bool
 };
 
-export default function ExpandablePlaneViewer(props) {
-  return (
-    <ErrorBoundary>
-      <PlaneModel {...props} />
-    </ErrorBoundary>
-  );
-}
+export default ExpandablePlaneViewer;

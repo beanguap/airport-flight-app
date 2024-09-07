@@ -9,7 +9,7 @@ const FlightTrackerPage = () => {
     <div className="flight-tracker-page">
       <h1>Flight Tracker</h1>
       {/* ... other components */}
-      <ExpandablePlaneViewer />
+      <ExpandablePlaneViewer modelPath="public/boeing-767/source/boeing-767.gltf" />
       <FlightMap />
       <Toolbar />
       {/* ... other components */}
