@@ -9,34 +9,39 @@ const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensit
   const [model, setModel] = useState(null);
   const [error, setError] = useState(null);
 
-  const gltf = useGLTF(new URL('../assets/boeing-767/source/!.gltf', import.meta.url).href); // Ensure correct path
+  // Construct the URL for the GLTF file relative to the current JS file
+  const gltfPath = new URL('src/assets/boeing-767/source/boeing-767.gltf', import.meta.url).toString();
+  
+  const { scene, error: gltfError } = useGLTF(gltfPath);
 
   useEffect(() => {
-    if (gltf) {
-      setModel(gltf.scene);
-    } else {
-      setError('Failed to load the 3D model. Please try again.');
+    if (scene) {
+      setModel(scene);
+    } else if (gltfError) {
+      setError('Failed to load the 3D model. Please check the file path or network requests.');
     }
-  }, [gltf]);
+  }, [scene, gltfError]);
 
   if (error) {
-    return <span>{error}</span>;
+    return <span className="error-message">{error}</span>;
   }
 
   if (!model) {
-    return <span>Loading model...</span>;
+    return <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="hotpink" />
+    </mesh>; // Placeholder while loading
   }
 
   return (
     <>
-      {/* Correct usage of lights from THREE */}
       <ambientLight intensity={0.3} />
       <directionalLight
         position={lightPosition}
         intensity={lightIntensity}
         castShadow={castShadow}
-        shadowMapSize-width={1024}
-        shadowMapSize-height={1024}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
       />
       <pointLight position={[-5, 5, -5]} intensity={0.5} />
       <spotLight
@@ -52,9 +57,9 @@ const PlaneModel = React.memo(function PlaneModel({ lightPosition, lightIntensit
 });
 
 PlaneModel.propTypes = {
-  lightPosition: PropTypes.arrayOf(PropTypes.number).isRequired,
-  lightIntensity: PropTypes.number.isRequired,
-  castShadow: PropTypes.bool.isRequired,
+  lightPosition: PropTypes.arrayOf(PropTypes.number),
+  lightIntensity: PropTypes.number,
+  castShadow: PropTypes.bool
 };
 
 export default function ExpandablePlaneViewer(props) {

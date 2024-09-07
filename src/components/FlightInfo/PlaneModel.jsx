@@ -1,14 +1,13 @@
-import { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const modelPath = 'src/assets/boeing-767/source/boeing-767.gltf';
-
 const PlaneModel = ({
   width,
   height,
+  modelPath,
   lightPosition = { x: 10, y: 10, z: 10 },
   lightIntensity = 1,
   castShadow = true,
@@ -20,24 +19,20 @@ const PlaneModel = ({
     let scene, camera, renderer, controls, model, animationFrameId;
 
     const initScene = () => {
-      // Initialize scene, camera, renderer
       scene = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
       renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(width, height);
-      renderer.shadowMap.enabled = true; // enable shadow map
+      renderer.shadowMap.enabled = true;
       mountRef.current.appendChild(renderer.domElement);
 
-      // Add light
       const light = new THREE.PointLight(0xffffff, lightIntensity);
       light.position.set(lightPosition.x, lightPosition.y, lightPosition.z);
       light.castShadow = castShadow;
       scene.add(light);
 
-      // Camera positioning
       camera.position.z = 5;
 
-      // Initialize controls
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.25;
@@ -52,7 +47,6 @@ const PlaneModel = ({
           model = gltf.scene;
           scene.add(model);
 
-          // Center and scale the model
           const box = new THREE.Box3().setFromObject(model);
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
@@ -83,23 +77,26 @@ const PlaneModel = ({
       renderer.render(scene, camera);
     };
 
-    initScene();
-    loadModel();
-    animate();
+    try {
+      initScene();
+      loadModel();
+      animate();
+      window.addEventListener('resize', onWindowResize);
+    } catch (err) {
+      console.error('Error initializing scene:', err);
+      setError(err);
+    }
 
-    window.addEventListener('resize', onWindowResize);
-
-    // Cleanup function
     return () => {
       cancelAnimationFrame(animationFrameId);
-      controls.dispose();
-      renderer.dispose();
+      if (controls) controls.dispose();
+      if (renderer) renderer.dispose();
       window.removeEventListener('resize', onWindowResize);
-      if (mountRef.current) {
+      if (mountRef.current && renderer) {
         mountRef.current.removeChild(renderer.domElement);
       }
     };
-  }, [width, height, lightPosition, lightIntensity, castShadow]);
+  }, [width, height, modelPath, lightPosition, lightIntensity, castShadow]);
 
   return (
     <div ref={mountRef} style={{ width: '100%', height: '100%' }}>
@@ -111,6 +108,7 @@ const PlaneModel = ({
 PlaneModel.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  modelPath: PropTypes.string.isRequired,
   lightPosition: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,

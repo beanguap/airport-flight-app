@@ -15,7 +15,7 @@ export default defineConfig({
     mimeTypes: {
       'application/javascript': ['js', 'mjs', 'worker.js'],
       'application/wasm': ['wasm'],
-      'model/gltf+json': ['gltf']
+      'model/gltf+json': ['gltf', 'json']
     }
   },
   build: {
@@ -28,7 +28,7 @@ export default defineConfig({
     },
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 4000,
-    sourcemap: true // Enable source maps
+    sourcemap: 'inline' // Enable inline source maps
   },
   resolve: {
     alias: {
@@ -38,5 +38,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['cesium']
-  }
+  },
+  assetsInclude: ['**/*.gltf', '**/*.glb'], // Add this line
+  publicDir: 'public', // Add this line if your assets are in a 'public' directory
 });
