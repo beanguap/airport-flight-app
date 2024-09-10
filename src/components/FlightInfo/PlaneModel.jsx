@@ -14,7 +14,7 @@ const Model = () => {
   return <primitive object={scene} />;
 };
 
-const PlaneModel = ({ width, height, style }) => {
+const PlaneModel = ({ width, height, style, rotation }) => {
   return (
     <div className="plane-model" style={{ width, height, ...style }}>
       <Canvas camera={{ position: [0, 2, 10], fov: 50 }}>
@@ -33,12 +33,17 @@ PlaneModel.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.object,
+  rotation: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
 };
 
 PlaneModel.defaultProps = {
   width: "100%",
   height: "100%",
   style: {},
+  rotation: { x: 0, y: 0 },
 };
 
 export default PlaneModel;

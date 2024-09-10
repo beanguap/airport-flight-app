@@ -1,0 +1,84 @@
+.expandable-plane-viewer {
+    position: relative;
+}
+
+.joystick-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10; /* Ensure the joystick is above other elements */
+}
+
+.joystick-base {
+    position: relative;
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.joystick-handle {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.joystick-indication {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.joystick-arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+}
+
+.joystick-arrow.up {
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.joystick-arrow.down {
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.joystick-arrow.left {
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.joystick-arrow.right {
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
