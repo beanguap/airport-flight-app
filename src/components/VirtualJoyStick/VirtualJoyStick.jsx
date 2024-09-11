@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import "./VirtualJoyStick.css";
+import PropTypes from "prop-types";
+import "./VirtualJoyStick.css"; // Ensure this import is correct
 
 const VirtualJoyStick = ({ onMove }) => {
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const baseRef = useRef(null);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = () => {
     setDragging(true);
   };
 
@@ -71,6 +72,10 @@ const VirtualJoyStick = ({ onMove }) => {
       <div className="joystick-arrow right">→</div>
     </div>
   );
+};
+
+VirtualJoyStick.propTypes = {
+  onMove: PropTypes.func,
 };
 
 export default VirtualJoyStick;

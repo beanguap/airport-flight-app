@@ -1,16 +1,7 @@
-.expandable-plane-viewer {
-    position: relative;
-}
-
-.joystick-container {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 10; /* Ensure the joystick is above other elements */
-}
-
 .joystick-base {
-    position: relative;
+    position: absolute; /* Use absolute positioning for precise control */
+    left: 20px; /* Adjust this value to position it horizontally */
+    bottom: 20px; /* Adjust this value to position it vertically */
     width: 100px; /* Adjust size as needed */
     height: 100px; /* Adjust size as needed */
     background-color: rgba(0, 0, 0, 0.1);
@@ -29,21 +20,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Center the handle within the base */
     cursor: pointer;
-}
-
-.joystick-indication {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
 }
 
 .joystick-arrow {

@@ -9,26 +9,15 @@
     z-index: 10; /* Ensure the joystick is above other elements */
 }
 
-.joystick-base {
-    position: relative;
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-}
-
-.joystick-handle {
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
+.joystick-indication {
     position: absolute;
-    top: 50%;
+    top: -30px;
     left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
 }
