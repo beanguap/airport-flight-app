@@ -1,74 +1,89 @@
 import { Suspense, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
-import "./PlaneModel.css"; // Import the CSS file for PlaneModel
+import { OrbitControls, useGLTF, Grid } from "@react-three/drei";
+import * as THREE from "three";
+import "./PlaneModel.css";
 
-const Model = ({ rotation }) => {
+const Model = ({ initialPosition, rotation }) => {
   const { scene } = useGLTF("/boeing-767/source/boeing-767.gltf");
-
-  // Center and scale the model
-  scene.position.set(0, 0, 0);
-  scene.scale.set(0.01, 0.01, 0.01); // Adjust the scale as needed
-  scene.rotation.set(rotation.x, rotation.y, 0); // Apply rotation
-
   const { camera } = useThree();
+  const modelRef = useRef();
   const controlsRef = useRef();
 
-  // Function to save the camera position and rotation in localStorage
-  const saveCameraState = () => {
-    const cameraState = {
-      position: camera.position.toArray(),
-      rotation: camera.rotation.toArray(),
-      target: controlsRef.current.target.toArray(), // Target for OrbitControls
-    };
-    localStorage.setItem("cameraState", JSON.stringify(cameraState));
-  };
-
-  // Function to load the camera position and rotation from localStorage
-  const loadCameraState = () => {
-    const savedState = localStorage.getItem("cameraState");
-    if (savedState) {
-      const { position, rotation, target } = JSON.parse(savedState);
-      camera.position.fromArray(position);
-      camera.rotation.fromArray(rotation);
-      controlsRef.current.target.fromArray(target);
-
-      // Force the controls to update with the new target
-      controlsRef.current.update();
-    }
-  };
-
   useEffect(() => {
-    // Load the saved camera state when the component mounts
-    loadCameraState();
+    if (modelRef.current) {
+      modelRef.current.position.set(
+        initialPosition.x,
+        initialPosition.y,
+        initialPosition.z,
+      );
+      modelRef.current.rotation.set(rotation.x, rotation.y, rotation.z);
+      modelRef.current.scale.set(0.01, 0.01, 0.01);
 
-    // Save the camera state whenever it changes
-    const controls = controlsRef.current;
-    controls.addEventListener("change", saveCameraState);
+      // Center the camera on the model
+      const box = new THREE.Box3().setFromObject(modelRef.current);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      controls.removeEventListener("change", saveCameraState);
-    };
-  }, [camera]);
+      const maxDim = Math.max(size.x, size.y, size.z);
+      const fov = camera.fov * (Math.PI / 180);
+      let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+
+      cameraZ *= 1.5; // Zoom out a little so object fits in view
+
+      camera.position.set(center.x, center.y, center.z + cameraZ);
+      camera.lookAt(center);
+      camera.updateProjectionMatrix();
+
+      if (controlsRef.current) {
+        controlsRef.current.target.set(center.x, center.y, center.z);
+        controlsRef.current.update();
+      }
+    }
+  }, [scene, camera, initialPosition, rotation]);
 
   return (
     <>
-      <primitive object={scene} />
+      <primitive ref={modelRef} object={scene} />
       <OrbitControls ref={controlsRef} />
     </>
   );
 };
 
-const PlaneModel = ({ width, height, style, rotation }) => {
+Model.propTypes = {
+  initialPosition: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+    z: PropTypes.number,
+  }),
+  rotation: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+    z: PropTypes.number,
+  }),
+};
+
+Model.defaultProps = {
+  initialPosition: { x: 0, y: 0, z: 0 },
+  rotation: { x: 0, y: 0, z: 0 },
+};
+
+const PlaneModel = ({
+  width = "100%",
+  height = "100%",
+  style = {},
+  rotation = { x: 0, y: 0, z: 0 },
+  initialPosition = { x: 0, y: 0, z: 0 },
+}) => {
   return (
     <div className="plane-model" style={{ width, height, ...style }}>
       <Canvas camera={{ position: [0, 2, 10], fov: 50 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={1} />
-          <Model rotation={rotation} />
+          <Model initialPosition={initialPosition} rotation={rotation} />
+          <Grid infiniteGrid />
         </Suspense>
       </Canvas>
     </div>
@@ -82,14 +97,13 @@ PlaneModel.propTypes = {
   rotation: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
+    z: PropTypes.number,
   }),
-};
-
-PlaneModel.defaultProps = {
-  width: "100%",
-  height: "100%",
-  style: {},
-  rotation: { x: 0, y: 0 },
+  initialPosition: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+    z: PropTypes.number,
+  }),
 };
 
 export default PlaneModel;
