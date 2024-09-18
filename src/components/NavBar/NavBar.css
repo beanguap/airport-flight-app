@@ -1,6 +1,6 @@
 .navbar {
     position: fixed;
-    top: 3%;
+    top: 90%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -35,4 +35,17 @@
 .nav-icon:hover {
     color: #ffcc00;
     transform: scale(1.2);
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+    .navbar {
+        width: 90%; /* Adjust width to fit mobile screens */
+        padding: 10px 10px; /* Adjust padding for mobile screens */
+    }
+
+    .nav-icon {
+        font-size: 20px; /* Adjust icon size for mobile screens */
+        padding: 8px; /* Adjust padding for mobile screens */
+    }
 }
