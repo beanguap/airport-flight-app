@@ -8,6 +8,27 @@
     background-color: #121212;
 }
 
+.location,
+.time,
+.weather,
+.closest-airport {
+    margin-bottom: 0; /* Remove bottom margin for inline layout */
+    color: #ff9500; /* Replace with the specific orange color used in your project */
+    text-align: center;
+    padding: 10px; /* Add some padding for better spacing */
+}
+
+/* Container for the toolbar items */
+.toolbar-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 20px; /* Add space between items */
+    background-color: #333; /* Optional: Add a background color for better contrast */
+    padding: 10px; /* Optional: Add padding around the container */
+    border-radius: 8px; /* Optional: Add rounded corners for a modern look */
+}
+
 .sections-container {
     display: flex;
     flex-direction: column;

@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar/NavBar.jsx";
+import Location from "../../components/ToolBar/Location.jsx";
+import Time from "../../components/ToolBar/CurrentTime.jsx";
+import Weather from "../../components/ToolBar/Weather.jsx";
+import ClosestAirport from "../../components/ToolBar/ClosestAirport.jsx";
 import "./HomePage.css";
+import "../../components/ToolBar/ToolBar.css"; // Import the ToolBar CSS
 import luggageDisplay from "../../assets/LuggageDisplay.jpg";
 import FlightTrack from "../../assets/FlightTrack.webp";
+import plane from "../../assets/plane.jpg"; // Import the plane image
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -16,6 +22,10 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+      <Location />
+      <Time />
+      <Weather />
+      <ClosestAirport />
       <div className="sections-container">
         <div className="section" onClick={() => handleSectionClick("Luggage")}>
           <div className="section-image-container">
@@ -34,7 +44,7 @@ const HomePage = () => {
           onClick={() => handleSectionClick("Destination")}
         >
           <div className="section-image-container">
-            {/* Add an image for Destination if available */}
+            <img src={plane} alt="Plane" className="section-image" />
           </div>
           <div className="section-title-container">
             <div className="section-title">Destination/Fun Facts</div>
