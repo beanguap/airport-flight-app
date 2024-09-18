@@ -1,17 +1,38 @@
 .navbar {
+    position: fixed;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: space-around;
-    background-color: #1e1e1e;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it is above other elements */
+    align-items: center;
+    width: 42%;
+    padding: 10px 20px;
+    background-color: #333;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+    z-index: 1000;
+}
+
+.navbar:hover {
+    background-color: #444;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .nav-icon {
+    color: white;
     font-size: 24px;
     text-decoration: none;
-    color: #333;
+    padding: 10px;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.nav-icon:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
 }
