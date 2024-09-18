@@ -1,3 +1,5 @@
+import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Location = () => {
@@ -32,7 +34,6 @@ const Location = () => {
       const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
       const response = await axios.get(url);
       const data = response.data;
-
       if (data.results.length > 0) {
         setAddress(data.results[0].formatted);
       } else {
