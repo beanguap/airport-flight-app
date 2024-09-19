@@ -1,20 +1,13 @@
-.location,
-.CurrentTime,
-.weather,
-.ClosestAirport {
-    margin-bottom: 0; /* Remove bottom margin for inline layout */
-    color: #ffa500; /* Replace with the specific orange color used in your project */
-    text-align: center;
-    padding: 10px; /* Add some padding for better spacing */
+/* toolbar.css */
+
+/* Default color for h2 elements in toolbar components */
+.h2 {
+    color: #ff9500; /* Set the default orange color */
+    text-align: center; /* Align text centrally */
+    padding: 5px; /* Keep consistent padding */
 }
 
-/* Container for the toolbar items */
-.toolbar-container {
-    display: flex;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    gap: 20px; /* Add space between items */
-    background-color: #333; /* Optional: Add a background color for better contrast */
-    padding: 10px; /* Optional: Add padding around the container */
-    border-radius: 8px; /* Optional: Add rounded corners for a modern look */
+/* Hover effect for h2 elements in toolbar components */
+.toolbar-container:hover .toolbar-item-header h2 {
+    color: #f0f0f0; /* Change color on hover */
 }

@@ -56,9 +56,7 @@ const Location = () => {
 
   return (
     <div>
-      <h2>Your Location</h2>
-      <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p>
+      <h2 style={{ color: "#ff9500" }}>Your Location</h2>
       {address && <p>Address: {address}</p>}
     </div>
   );

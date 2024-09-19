@@ -74,7 +74,7 @@ const Weather = () => {
     <div>
       {weather ? (
         <div>
-          <h2>Current Weather</h2>
+          <h2 style={{ color: "#ff9500" }}>Current Weather</h2>
           <p>Location: {weather.name}</p>
           <p>Temperature: {weather.main.temp} °C</p>
           <p>Weather: {weather.weather[0].description}</p>

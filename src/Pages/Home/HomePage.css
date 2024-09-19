@@ -1,3 +1,4 @@
+/* General styles */
 .home-page {
     display: flex;
     flex-direction: column;
@@ -8,25 +9,88 @@
     background-color: #121212;
 }
 
+/* Text color change for toolbar items */
 .location,
 .time,
 .weather,
 .closest-airport {
-    margin-bottom: 0; /* Remove bottom margin for inline layout */
-    color: #ff9500; /* Replace with the specific orange color used in your project */
-    text-align: center;
-    padding: 10px; /* Add some padding for better spacing */
+    color: #ff9500; /* Set the default orange color */
+    text-align: center; /* Align text centrally */
+    padding: 5px; /* Keep consistent padding */
+}
+
+/* Hover effect for toolbar text */
+.toolbar-container:hover .location,
+.toolbar-container:hover .weather,
+.toolbar-container:hover .time,
+.toolbar-container:hover .closest-airport {
+    color: #f0f0f0; /* Change color on hover */
+}
+
+/* Wrap text for "Your Location" */
+.location {
+    max-width: 100%; /* Ensure full-width usage */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
+    text-align: center; /* Align text like other sections */
+}
+
+/* Adjust "Current Weather" text wrapping similarly if needed */
+.weather {
+    max-width: 100%; /* Ensure full-width usage */
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words if necessary */
 }
 
 /* Container for the toolbar items */
 .toolbar-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(
+        4,
+        1fr
+    ); /* Adjust columns to 4 to accommodate all items */
+    gap: 5px; /* Space between items */
+    background-color: #1e1e1e; /* Optional: Add a background color for better contrast */
+    margin-bottom: 15px;
+    padding: 10px 20px; /* Increase padding for better spacing */
+    border-radius: 50px; /* Optional: Add rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
     justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    gap: 20px; /* Add space between items */
-    background-color: #333; /* Optional: Add a background color for better contrast */
-    padding: 10px; /* Optional: Add padding around the container */
-    border-radius: 8px; /* Optional: Add rounded corners for a modern look */
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.toolbar-item {
+    display: flex;
+    flex-direction: column;
+    color: #e0e0e0;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Adjust padding for better spacing */
+    border-radius: 8px;
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.toolbar-item:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    background-color: #555; /* Slightly lighter background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+}
+
+.toolbar-item-header {
+    color: #ff9500; /* Replace with the specific orange color used in your project */
+    font-size: 1em; /* Adjust font size as needed */
+    font-weight: bold; /* Ensure consistent font weight */
+    margin-top: 5px; /* Add some space above the text */
+}
+
+/* Ensure the header color changes on hover */
+.toolbar-container:hover .toolbar-item-header {
+    color: #f0f0f0; /* Change color on hover */
 }
 
 .sections-container {
@@ -70,7 +134,10 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: filter 0.3s ease;
+    filter: blur(5px); /* Default blur */
+    transition:
+        filter 0.3s ease,
+        transform 0.3s ease; /* Smooth transition for filter and transform */
 }
 
 .section-title-container {
@@ -83,8 +150,6 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
 .section-title {
@@ -99,21 +164,35 @@
 }
 
 .section:hover .section-image {
-    filter: blur(5px);
-}
-
-.section:hover .section-title-container {
-    opacity: 1;
+    filter: blur(0); /* Remove blur on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
 }
 
 .section:hover .section-title {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slightly scale up the title on hover */
 }
 
 /* Media query for mobile view */
 @media (max-width: 768px) {
     .home-page {
         padding: 20px;
+    }
+
+    .toolbar-container {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        gap: 5px; /* Reduce gap between items */
+        padding: 5px; /* Reduce padding around the container */
+        width: 100%; /* Adjust width to fit mobile screens */
+        max-height: 200px; /* Set a smaller max height for the container */
+        overflow-y: auto; /* Enable vertical scrolling */
+        position: relative; /* For positioning arrows */
+        margin-top: 0; /* Remove negative margin */
+    }
+
+    .toolbar-item {
+        padding: 5px; /* Reduce padding for smaller toolbar items */
+        font-size: 0.8em; /* Reduce font size for smaller screens */
     }
 
     .sections-container {
@@ -125,6 +204,29 @@
     }
 
     .section-title {
-        font-size: 1.2em; /* Adjust font size */
+        font-size: 1em; /* Adjust font size */
+    }
+
+    .section:hover {
+        transform: scale(1.05); /* Slightly scale up on hover */
+    }
+
+    /* Arrow indicators */
+    .scroll-arrow {
+        position: fixed; /* Fix position to always be visible */
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em; /* Reduce font size for arrows */
+        color: #ff9500;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .scroll-arrow.up {
+        top: 10px; /* Position above the toolbar container */
+    }
+
+    .scroll-arrow.down {
+        bottom: 10px; /* Position below the toolbar container */
     }
 }

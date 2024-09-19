@@ -16,11 +16,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
-    mimeTypes: {
-      "application/javascript": ["js", "mjs", "worker.js"],
-      "application/wasm": ["wasm"],
-      "model/gltf+json": ["gltf", "json"],
-    },
   },
   build: {
     rollupOptions: {
@@ -32,13 +27,14 @@ export default defineConfig({
     },
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 4000,
-    sourcemap: "inline", // Enable inline source maps
+    sourcemap: true, // Use external source maps
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
       cesium: path.resolve(__dirname, "node_modules/cesium"),
     },
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // Ensure .jsx is included
   },
   optimizeDeps: {
     include: ["cesium"],

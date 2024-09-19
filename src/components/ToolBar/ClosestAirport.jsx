@@ -73,7 +73,7 @@ const ClosestAirport = () => {
     <div>
       {airport ? (
         <div>
-          <h2>Closest Airport</h2>
+          <h2 style={{ color: "#ff9500" }}>Closest Airport</h2>
           <p>Name: {airport.tags.name || "Unknown"}</p>
           <p>Type: {airport.tags.aeroway}</p>
         </div>
