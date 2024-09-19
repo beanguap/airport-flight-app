@@ -1,0 +1,39 @@
+.passport-stats-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.passport-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.passport-stats-table th,
+.passport-stats-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+``` ### `PassportPage.css` ```css .passport-page {
+    padding: 20px;
+}
+
+.flight-form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
