@@ -5,7 +5,7 @@
 
 Airport-Flight-App is a cutting-edge React + Vite application designed to revolutionize your travel experience. Seamlessly manage your luggage across multiple trips, access real-time weather updates, and discover nearby airports - all within a visually stunning 3D interface.
 
-![Airport-Flight-App Interface](https://example.com/path-to-your-image.jpg)
+![Airport-Flight-App Interface](https://raw.githubusercontent.com/beanguap/airport-flight-app/master/src/assets/FlightAppCover.jpg)
 
 ## 🚀 Features
 
