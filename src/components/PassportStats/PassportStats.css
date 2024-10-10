@@ -1,5 +1,5 @@
 body {
-    background-color: #121212;
+    background-color: #ff9500;
     color: #e0e0e0;
     margin: 0;
     padding: 0;
@@ -132,4 +132,96 @@ body {
 .sticker-input button:hover {
     background-color: #e0e0e0;
     color: #121212;
+}
+
+/* Media Queries */
+
+/* Smartphones */
+@media (max-width: 600px) {
+    .passport {
+        width: 90%;
+        height: auto;
+    }
+
+    .stat-item {
+        font-size: 12px;
+        min-width: 80px;
+    }
+
+    .route-info h3 {
+        font-size: 14px;
+    }
+
+    .route-info p {
+        font-size: 12px;
+    }
+
+    .sticker-item {
+        width: 60px;
+        height: 60px;
+    }
+
+    .sticker-input input {
+        width: 150px;
+    }
+}
+
+/* Tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .passport {
+        width: 80%;
+        height: auto;
+    }
+
+    .stat-item {
+        font-size: 13px;
+        min-width: 90px;
+    }
+
+    .route-info h3 {
+        font-size: 15px;
+    }
+
+    .route-info p {
+        font-size: 13px;
+    }
+
+    .sticker-item {
+        width: 65px;
+        height: 65px;
+    }
+
+    .sticker-input input {
+        width: 180px;
+    }
+}
+
+/* Laptops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .passport {
+        width: 70%;
+        height: auto;
+    }
+
+    .stat-item {
+        font-size: 14px;
+        min-width: 100px;
+    }
+
+    .route-info h3 {
+        font-size: 16px;
+    }
+
+    .route-info p {
+        font-size: 14px;
+    }
+
+    .sticker-item {
+        width: 70px;
+        height: 70px;
+    }
+
+    .sticker-input input {
+        width: 200px;
+    }
 }

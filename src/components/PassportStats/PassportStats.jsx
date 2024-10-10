@@ -7,7 +7,7 @@ const ItemTypes = {
   STICKER: "sticker",
 };
 
-const Sticker = ({ name, index, moveSticker }) => {
+const Sticker = ({ src, index, moveSticker }) => {
   const [, ref] = useDrag({
     type: ItemTypes.STICKER,
     item: { index },
@@ -25,20 +25,23 @@ const Sticker = ({ name, index, moveSticker }) => {
 
   return (
     <div ref={(node) => ref(drop(node))} className="sticker-item">
-      {name}
+      <img src={src} alt={`Sticker ${index}`} className="sticker-image" />
     </div>
   );
 };
 
 const PassportStats = () => {
   const [stickers, setStickers] = useState([]);
-  const [stickerName, setStickerName] = useState("");
   const [route, setRoute] = useState({ from: "MIA", to: "LAX" });
 
-  const handleAddSticker = () => {
-    if (stickerName.trim() !== "") {
-      setStickers([...stickers, stickerName]);
-      setStickerName("");
+  const handleStickerUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setStickers([...stickers, { name: file.name, src: reader.result }]);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -78,7 +81,7 @@ const PassportStats = () => {
               <Sticker
                 key={index}
                 index={index}
-                name={sticker}
+                src={sticker.src}
                 moveSticker={moveSticker}
               />
             ))}
@@ -87,13 +90,7 @@ const PassportStats = () => {
 
         {/* Sticker Input */}
         <div className="sticker-input">
-          <input
-            type="text"
-            value={stickerName}
-            onChange={(e) => setStickerName(e.target.value)}
-            placeholder="Enter sticker name"
-          />
-          <button onClick={handleAddSticker}>Add Sticker</button>
+          <input type="file" accept="image/*" onChange={handleStickerUpload} />
         </div>
       </div>
     </DndProvider>

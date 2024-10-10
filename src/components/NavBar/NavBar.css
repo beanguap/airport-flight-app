@@ -1,6 +1,6 @@
 .navbar {
     position: fixed;
-    top: 92.5%;
+    top: 90.5%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
