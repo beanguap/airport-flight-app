@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import * as Cesium from 'cesium';
-import 'cesium/Build/Cesium/Widgets/widgets.css';
-import './FlightMap.css';
+import { useEffect, useRef, useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import * as Cesium from "cesium";
+import "cesium/Build/Cesium/Widgets/widgets.css";
+import "./FlightMap.css";
 
 const CesiumMap = ({ title, isExpanded, onToggle }) => {
   const mapRef = useRef(null);
@@ -14,7 +14,7 @@ const CesiumMap = ({ title, isExpanded, onToggle }) => {
         try {
           const terrainProvider = await Cesium.createWorldTerrainAsync({
             requestVertexNormals: false,
-            requestWaterMask: false
+            requestWaterMask: false,
           });
 
           const viewer = new Cesium.Viewer(mapRef.current, {
@@ -26,7 +26,7 @@ const CesiumMap = ({ title, isExpanded, onToggle }) => {
             homeButton: false,
             timeline: false,
             animation: false,
-            creditsDisplay: false
+            creditsDisplay: false,
           });
 
           // Apply WebGL optimizations
@@ -48,7 +48,7 @@ const CesiumMap = ({ title, isExpanded, onToggle }) => {
 
           viewerRef.current = viewer;
         } catch (error) {
-          console.error('Error initializing Cesium map:', error);
+          console.error("Error initializing Cesium map:", error);
         }
       }
     };
@@ -70,11 +70,11 @@ const CesiumMap = ({ title, isExpanded, onToggle }) => {
   }, [isExpanded]);
 
   return (
-    <div className={`map-container ${isExpanded ? 'expanded' : 'shrunk'}`}>
+    <div className={`map-container ${isExpanded ? "expanded" : "shrunk"}`}>
       <div className="map-header">
         <h3 className="map-title">{title}</h3>
         <button className="toggle-button" onClick={onToggle}>
-          {isExpanded ? '↓' : '↑'}
+          {isExpanded ? "↓" : "↑"}
         </button>
       </div>
       <div ref={mapRef} className="cesium-container" />
@@ -97,16 +97,18 @@ const FlightMap = () => {
     if (cesiumToken) {
       Cesium.Ion.defaultAccessToken = cesiumToken;
     } else {
-      console.error('Cesium Ion token not found. Please set VITE_CESIUM_ION_TOKEN in your environment.');
+      console.error(
+        "Cesium Ion token not found. Please set VITE_CESIUM_ION_TOKEN in your environment.",
+      );
     }
   }, []);
 
   const handleMap1Toggle = useCallback(() => {
-    setMap1Expanded(prev => !prev);
+    setMap1Expanded((prev) => !prev);
   }, []);
 
   const handleMap2Toggle = useCallback(() => {
-    setMap2Expanded(prev => !prev);
+    setMap2Expanded((prev) => !prev);
   }, []);
 
   return (
