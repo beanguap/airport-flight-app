@@ -8,6 +8,7 @@ import "./HomePage.css";
 import luggageDisplay from "../../assets/LuggageDisplay.jpg";
 import FlightTrack from "../../assets/FlightTrack.webp";
 import plane from "../../assets/plane.jpg"; // Import the plane image
+import Toolbar from "../../components/ToolBar/Toolbar.jsx";
 import { useEffect } from "react";
 
 const HomePage = () => {

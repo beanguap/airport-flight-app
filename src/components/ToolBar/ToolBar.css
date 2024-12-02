@@ -11,3 +11,43 @@
 .toolbar-container:hover .toolbar-item-header h2 {
     color: #f0f0f0; /* Change color on hover */
 }
+
+/* Media query for smartphone resolutions */
+@media (max-width: 600px) {
+    .toolbar-container {
+        display: flex;
+        flex-direction: row; /* Ensure items are in a row */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        scroll-snap-type: x mandatory;
+        position: relative;
+        white-space: nowrap; /* Prevent items from wrapping to the next line */
+    }
+
+    .toolbar-item {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        padding: 10px;
+        display: inline-block; /* Ensure items are inline */
+    }
+
+    .toolbar-arrow {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .toolbar-arrow.left {
+        left: 0;
+    }
+
+    .toolbar-arrow.right {
+        right: 0;
+    }
+}
