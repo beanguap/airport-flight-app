@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import "./VirtualJoyStick.css"; // Ensure this import is correct
+import "./VirtualJoyStick.css";
 
 const VirtualJoyStick = ({ onMove }) => {
   const [dragging, setDragging] = useState(false);
@@ -11,13 +11,13 @@ const VirtualJoyStick = ({ onMove }) => {
     setDragging(true);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setDragging(false);
     setPosition({ x: 0, y: 0 });
     if (onMove) onMove({ x: 0, y: 0 });
-  };
+  }, [onMove]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!dragging) return;
 
     const base = baseRef.current;
@@ -43,7 +43,7 @@ const VirtualJoyStick = ({ onMove }) => {
 
     setPosition(newPosition);
     if (onMove) onMove(newPosition);
-  };
+  }, [dragging, onMove]);
 
   useEffect(() => {
     if (dragging) {
@@ -58,7 +58,7 @@ const VirtualJoyStick = ({ onMove }) => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [dragging]);
+  }, [dragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div className="joystick-base" ref={baseRef} onMouseDown={handleMouseDown}>
