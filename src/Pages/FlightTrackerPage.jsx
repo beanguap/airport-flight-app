@@ -1,16 +1,12 @@
 import ExpandablePlaneViewer from "../components/FlightInfo/ExpandablePlaneViewer";
 import FlightMap from "../components/FlightInfo/FlightMap";
-
-// ... other imports
+import "../components/FlightInfo/FlightTracker.css";
 
 const FlightTrackerPage = () => {
   return (
     <div className="flight-tracker-page">
-      {/* ... other components */}
-      <ExpandablePlaneViewer modelPath="public/boeing-767/source/boeing-767.gltf" />
+      <ExpandablePlaneViewer />
       <FlightMap />
-
-      {/* ... other components */}
     </div>
   );
 };

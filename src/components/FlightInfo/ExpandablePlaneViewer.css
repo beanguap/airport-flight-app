@@ -1,11 +1,42 @@
 .expandable-plane-viewer {
     position: relative;
+    overflow: hidden;
+    margin: 20px auto; /* Create space between the viewer and the webpage */
+    max-width: 90%; /* Shrink the size of the container */
+    border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+}
+
+.header {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.expand-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.expand-button:hover {
+    background-color: var(--secondary-color);
 }
 
 .joystick-container {
     position: absolute;
     bottom: 20px;
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10; /* Ensure the joystick is above other elements */
 }
 

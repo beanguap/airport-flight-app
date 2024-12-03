@@ -47,26 +47,8 @@ const ExpandablePlaneViewer = () => {
     >
       <div className="header">
         <h2 className="title">Flight Tracker</h2>
-        <button
-          onClick={toggleExpand}
-          className="expand-button"
-          aria-expanded={isExpanded}
-          aria-label={
-            isExpanded ? "Shrink plane viewer" : "Expand plane viewer"
-          }
-        >
-          {isExpanded ? "Shrink" : "Expand"}
-        </button>
       </div>
-      <PlaneModel
-        width={isExpanded ? "100%" : "100%"}
-        height={isExpanded ? undefined : 240}
-        style={{
-          height: isExpanded ? "calc(90vh - 60px)" : undefined,
-          width: "100%",
-        }}
-        rotation={rotation}
-      />
+      <PlaneModel rotation={rotation} />
       <div className="joystick-container">
         <VirtualJoyStick onMove={handleJoystickMove} />
         {showIndication && (
@@ -75,6 +57,14 @@ const ExpandablePlaneViewer = () => {
           </div>
         )}
       </div>
+      <button
+        onClick={toggleExpand}
+        className="expand-button"
+        aria-expanded={isExpanded}
+        aria-label={isExpanded ? "Shrink plane viewer" : "Expand plane viewer"}
+      >
+        {isExpanded ? "Shrink" : "Expand"}
+      </button>
     </motion.div>
   );
 };
