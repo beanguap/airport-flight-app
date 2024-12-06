@@ -1,57 +1,9 @@
-import { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { motion } from "framer-motion";
-import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Grid } from "@react-three/drei";
-import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { Grid } from "@react-three/drei";
 import VirtualJoyStick from "./VirtualJoyStick/VirtualJoyStick";
-
-const Model = ({ initialPosition, rotation }) => {
-  const { scene } = useGLTF("/boeing-767/source/boeing-767.gltf", true, (error) => {
-    console.error("Error loading model:", error);
-  });
-  const { camera } = useThree();
-  const modelRef = useRef();
-  const controlsRef = useRef();
-
-  useEffect(() => {
-    if (modelRef.current) {
-      modelRef.current.position.set(
-        initialPosition.x,
-        initialPosition.y,
-        initialPosition.z,
-      );
-      modelRef.current.rotation.set(rotation.x, rotation.y, rotation.z);
-      modelRef.current.scale.set(0.01, 0.01, 0.01);
-
-      // Center the camera on the model
-      const box = new THREE.Box3().setFromObject(modelRef.current);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const fov = camera.fov * (Math.PI / 180);
-      let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-
-      cameraZ *= 1.5; // Zoom out a little so object fits in view
-
-      camera.position.set(center.x, center.y, center.z + cameraZ);
-      camera.lookAt(center);
-      camera.updateProjectionMatrix();
-
-      if (controlsRef.current) {
-        controlsRef.current.target.set(center.x, center.y, center.z);
-        controlsRef.current.update();
-      }
-    }
-  }, [scene, camera, initialPosition, rotation]);
-
-  return (
-    <>
-      <primitive ref={modelRef} object={scene} />
-      <OrbitControls ref={controlsRef} />
-    </>
-  );
-};
+import { Model } from "./Model";
 
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -85,8 +37,8 @@ const ExpandablePlaneViewer = () => {
     <motion.div
       className="expandable-plane-viewer"
       variants={{
-        small: { width: "100%", height: "300px", borderRadius: "15px" },
-        large: { width: "100%", height: "90vh", borderRadius: "15px" },
+        small: { width: "100%", height: "300px", borderRadius: "15px", margin: "0 20px" },
+        large: { width: "100%", height: "90vh", borderRadius: "15px", margin: "0 20px" },
       }}
       initial="small"
       animate={isExpanded ? "large" : "small"}
