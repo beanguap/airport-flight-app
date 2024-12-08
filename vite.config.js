@@ -10,13 +10,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       cesium: path.resolve(__dirname, "node_modules/cesium"),
     },
-    extensions: [".js", ".jsx", ".ts", ".tsx"], // Ensure .jsx is included
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   optimizeDeps: {
     include: ["cesium"],
   },
-  assetsInclude: ["**/*.gltf", "**/*.glb"], // Include GLTF and GLB assets
-  publicDir: "public", // Ensure public directory is set
+  assetsInclude: ["**/*.gltf", "**/*.glb"],
+  publicDir: "public",
   build: {
     rollupOptions: {
       output: {
@@ -27,7 +27,7 @@ export default defineConfig({
     },
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 4000,
-    sourcemap: true, // Use external source maps
+    sourcemap: true, // Ensure source maps are enabled
   },
   server: {
     proxy: {

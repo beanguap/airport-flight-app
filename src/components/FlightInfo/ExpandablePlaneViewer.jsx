@@ -1,7 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
-import { Grid } from "@react-three/drei";
 import VirtualJoyStick from "./VirtualJoyStick/VirtualJoyStick";
 import { Model } from "./Model";
 import './ExpandablePlaneViewer.css';
@@ -11,6 +10,10 @@ const ExpandablePlaneViewer = () => {
   const [rotation, setRotation] = useState(() => {
     const savedRotation = localStorage.getItem("planeRotation");
     return savedRotation ? JSON.parse(savedRotation) : { x: 0, y: 0 };
+  });
+  const [cameraPosition] = useState(() => {
+    const savedPosition = localStorage.getItem('cameraPosition');
+    return savedPosition ? JSON.parse(savedPosition) : [-2, 0, 0]; // Default position
   });
   const [showIndication, setShowIndication] = useState(true);
 
@@ -50,12 +53,13 @@ const ExpandablePlaneViewer = () => {
           <h2 className="title">Flight Tracker</h2>
         </div>
         <div className="plane-model">
-          <Canvas camera={{ position: [0, 2, 10], fov: 50 }}>
+          <Canvas camera={{ position: cameraPosition, fov: 50 }}>
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[10, 10, 5]} intensity={1} />
-              <Model initialPosition={{ x: 0, y: 0, z: 0 }} rotation={rotation} />
-              <Grid infiniteGrid />
+              <Model rotation={rotation} />
+              {/* Grid component removed */}
+              {/* <Grid infiniteGrid /> */}
             </Suspense>
           </Canvas>
         </div>

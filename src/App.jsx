@@ -9,18 +9,16 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/flight-tracker" element={<FlightTrackerPage />} />
-          <Route path="/passport" element={<PassportPage />} />
-          <Route path="/luggage" element={<LuggagePage />} />
-          {/* Add other routes here */}
-        </Routes>
-      </div>
-    </Router>
+    <div className="app-container">
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/flight-tracker" element={<FlightTrackerPage />} />
+        <Route path="/passport" element={<PassportPage />} />
+        <Route path="/luggage" element={<LuggagePage />} />
+        {/* Add other routes here */}
+      </Routes>
+    </div>
   );
 }
 
