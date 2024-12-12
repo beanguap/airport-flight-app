@@ -4,15 +4,15 @@
   align-items: center;
   min-height: 30vh;
   padding: 2rem;
-  background: #f5f5f5;
+  background: #121212; /* Replaced with the dark background */
 }
 
 .expandable-plane-viewer {
   width: 100%;
   position: relative;
-  background: #ffffff;
+  background: #555555; /* Replaced with the toolbar container background */
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Consistent shadow */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -25,14 +25,14 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+  background: #1e1e1e; /* Replaced with the toolbar container background */
+  border-bottom: 1px solid #555555; /* Consistent medium gray for borders */
 }
 
 .title {
   margin: 0;
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: #e0e0e0; /* Replaced with light gray text */
   font-weight: 600;
 }
 
@@ -43,16 +43,14 @@
   width: 40px;
   height: 40px;
   border-radius: 10%;
-  background: #007bff;
-  color: white;
+  background: #ff9500; /* Replaced with vibrant orange */
+  color: #e0e0e0; /* Light gray text for better contrast */
   border: none;
   cursor: pointer;
 }
 
-
-
 .expand-button:hover {
-  background: #0056b3;
+  background: #555555; /* Replaced with the medium gray for hover effect */
 }
 
 .joystick-container {
@@ -64,7 +62,7 @@
 
 .joystick-indication {
   margin-top: 0.5rem;     /* Space between joystick and indicator */
-  color: #555;
+  color: #e0e0e0; /* Light gray text for readability */
   font-size: 1rem;
   text-align: center;
 }
