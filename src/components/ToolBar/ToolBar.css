@@ -1,53 +1,67 @@
-/* toolbar.css */
-
-/* Default color for h2 elements in toolbar components */
-.h2 {
-    color: #ff9500; /* Set the default orange color */
-    text-align: center; /* Align text centrally */
-    padding: 5px; /* Keep consistent padding */
+/* Container for vertical carousel */
+.toolbar-container {
+    width: 100%;
+    height: 100%; /* Ensure it fills its parent container */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; /* Even spacing between items */
+    align-items: stretch; /* Ensure items take up full width */
+    background-color: #1c1c1c; 
+    border-radius: 10px; 
+    padding: 10px;
+    box-sizing: border-box; /* Includes padding in total dimensions */
+    overflow: hidden; /* Prevents overflow outside the container */
 }
 
-/* Hover effect for h2 elements in toolbar components */
-.toolbar-container:hover .toolbar-item-header h2 {
-    color: #f0f0f0; /* Change color on hover */
+/* Each toolbar item aligns properly and fits within the container */
+.toolbar-item {
+    flex: 1; /* Distribute height evenly among items */
+    background: #2a2a2a;
+    width: 100%; /* Full width of the container */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* Stacks text vertically */
+    align-items: center;
+    justify-content: center; /* Center content */
+    font-size: 14px; /* Adjust for legibility */
+    font-weight: bold;
+    color: #ff9500; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box; /* Prevents padding from adding extra size */
+    overflow: hidden; /* Prevents content overflow */
 }
 
-/* Media query for smartphone resolutions */
-@media (max-width: 600px) {
-    .toolbar-container {
-        display: flex;
-        flex-direction: row; /* Ensure items are in a row */
-        overflow-x: auto; /* Enable horizontal scrolling */
-        scroll-snap-type: x mandatory;
-        position: relative;
-        white-space: nowrap; /* Prevent items from wrapping to the next line */
-    }
+/* Ensuring text fits within the box */
+.toolbar-item h2 {
+    margin: 0;
+    line-height: 1.4; /* Improve spacing between lines */
+    font-size: clamp(12px, 2.5vw, 16px); /* Responsive font size */
+    white-space: normal; /* Allow text wrapping */
+    word-wrap: break-word; /* Handle long words by breaking them */
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Add ellipsis for truncated text */
+}
 
-    .toolbar-item {
-        flex: 0 0 auto;
-        scroll-snap-align: start;
-        padding: 10px;
-        display: inline-block; /* Ensure items are inline */
-    }
+/* Optional: Additional styling for multiple text lines */
+.toolbar-item p {
+    margin: 5px 0 0;
+    font-size: clamp(10px, 2vw, 14px); /* Responsive font size */
+    line-height: 1.4;
+    color: #f0f0f0;
+    text-align: center;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .toolbar-arrow {
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 1;
-    }
+/* Hover effect for better interaction */
+.toolbar-item:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+}
 
-    .toolbar-arrow.left {
-        left: 0;
-    }
-
-    .toolbar-arrow.right {
-        right: 0;
-    }
+.toolbar-item:hover h2, .toolbar-item:hover p {
+    color: #f0f0f0;
 }

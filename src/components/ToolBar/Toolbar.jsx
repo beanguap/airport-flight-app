@@ -1,30 +1,56 @@
-import React from 'react';
+import  { useEffect } from 'react';
 import './toolbar.css';
 
-const ToolbarItem = ({ title }) => (
+const ToolbarItem = ({ title, subtitle }) => (
     <div className="toolbar-item">
-        <h2 className="h2">{title}</h2>
+        <h2>{title}</h2>
+        {subtitle && <p>{subtitle}</p>}
     </div>
 );
 
-const Toolbar = () => {
-    const scrollLeft = () => {
-        const container = document.querySelector('.toolbar-container');
-        container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
-    };
 
-    const scrollRight = () => {
+const Toolbar = () => {
+    useEffect(() => {
         const container = document.querySelector('.toolbar-container');
-        container.scrollBy({ left: container.clientWidth, behavior: 'smooth' });
-    };
+        let isScrolling;
+
+        const handleScroll = () => {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                snapToClosestItem();
+            }, 100);
+        };
+
+        container.addEventListener('scroll', handleScroll);
+
+        // Cleanup event listener on component unmount
+        return () => {
+            container.removeEventListener('scroll', handleScroll);
+        };
+
+        function snapToClosestItem() {
+            const items = Array.from(document.querySelectorAll('.toolbar-item'));
+            const scrollPosition = container.scrollTop;
+            const itemHeight = items[0].offsetHeight;
+
+            // Determine the closest item based on current scroll position
+            const closestIndex = Math.round(scrollPosition / itemHeight);
+
+            // Smoothly scroll to the closest item
+            container.scrollTo({
+                top: closestIndex * itemHeight,
+                behavior: 'smooth'
+            });
+        }
+    }, []);
 
     return (
         <div className="toolbar-container">
-            <button className="toolbar-arrow left" onClick={scrollLeft}>&#9664;</button>
-            <ToolbarItem title="Item 1" />
-            <ToolbarItem title="Item 2" />
-            <ToolbarItem title="Item 3" />
-            <button className="toolbar-arrow right" onClick={scrollRight}>&#9654;</button>
+            <ToolbarItem title="Current Time" />
+            <ToolbarItem title="Current Weather" />
+            <ToolbarItem title="Luggage" />
+            <ToolbarItem title="Destination" />
+            <ToolbarItem title="Another Item" />
         </div>
     );
 };

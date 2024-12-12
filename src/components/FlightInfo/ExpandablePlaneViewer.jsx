@@ -28,6 +28,13 @@ const ExpandablePlaneViewer = () => {
     setRotation(newRotation);
   };
 
+  // Reset rotation when the viewer is shrunk back
+  useEffect(() => {
+    if (!isExpanded) {
+      setRotation({ x: 0, y: 0 });
+    }
+  }, [isExpanded]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIndication(false);
