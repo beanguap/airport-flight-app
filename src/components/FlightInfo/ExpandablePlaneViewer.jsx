@@ -2,19 +2,18 @@ import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import VirtualJoyStick from "./VirtualJoyStick/VirtualJoyStick";
-import { Model } from "./Model";
+import Model from "./Model";
 import './ExpandablePlaneViewer.css';
 
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [rotation, setRotation] = useState(() => {
-    const savedRotation = localStorage.getItem("planeRotation");
-    return savedRotation ? JSON.parse(savedRotation) : { x: 0, y: 0 };
-  });
-  const [cameraPosition] = useState(() => {
-    const savedPosition = localStorage.getItem('cameraPosition');
-    return savedPosition ? JSON.parse(savedPosition) : [-2, 0, 0]; // Default position
-  });
+  
+  // Maintain rotation state in memory (no localStorage)
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+  // A stable, default camera position (no localStorage)
+  const cameraPosition = [-2, 0, 0];
+  
   const [showIndication, setShowIndication] = useState(true);
 
   const toggleExpand = () => {
@@ -22,12 +21,12 @@ const ExpandablePlaneViewer = () => {
   };
 
   const handleJoystickMove = (position) => {
+    // Map joystick position directly to rotation
     const newRotation = {
       x: position.y,
       y: position.x,
     };
     setRotation(newRotation);
-    localStorage.setItem("planeRotation", JSON.stringify(newRotation));
   };
 
   useEffect(() => {
@@ -52,17 +51,18 @@ const ExpandablePlaneViewer = () => {
         <div className="header">
           <h2 className="title">Flight Tracker</h2>
         </div>
+
         <div className="plane-model">
           <Canvas camera={{ position: cameraPosition, fov: 50 }}>
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[10, 10, 5]} intensity={1} />
+              {/* The Model receives rotation as a prop and just rotates the model accordingly */}
               <Model rotation={rotation} />
-              {/* Grid component removed */}
-              {/* <Grid infiniteGrid /> */}
             </Suspense>
           </Canvas>
         </div>
+
         <div className="joystick-container">
           <VirtualJoyStick onMove={handleJoystickMove} />
           {showIndication && (
@@ -71,6 +71,7 @@ const ExpandablePlaneViewer = () => {
             </div>
           )}
         </div>
+
         <button
           onClick={toggleExpand}
           className="expand-button"

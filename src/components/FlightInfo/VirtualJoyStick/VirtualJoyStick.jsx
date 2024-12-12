@@ -7,7 +7,9 @@ const VirtualJoyStick = ({ onMove, initialPosition = { x: 0, y: 0 } }) => {
   const [position, setPosition] = useState(initialPosition);
   const baseRef = useRef(null);
 
-  const handleStart = useCallback((clientX, clientY) => {
+  const handleStart = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setDragging(true);
   }, []);
 
@@ -18,7 +20,7 @@ const VirtualJoyStick = ({ onMove, initialPosition = { x: 0, y: 0 } }) => {
   }, [onMove]);
 
   const handleMove = useCallback((clientX, clientY) => {
-    if (!dragging || !baseRef.current) return;
+    if (!baseRef.current) return;
 
     const base = baseRef.current;
     const rect = base.getBoundingClientRect();
@@ -43,24 +45,26 @@ const VirtualJoyStick = ({ onMove, initialPosition = { x: 0, y: 0 } }) => {
 
     setPosition(newPosition);
     if (onMove) onMove(newPosition);
-  }, [dragging, onMove]);
+  }, [onMove]);
 
   const handleMouseMove = useCallback((e) => {
-    handleMove(e.clientX, e.clientY);
-  }, [handleMove]);
+    if (dragging) {
+      handleMove(e.clientX, e.clientY);
+    }
+  }, [dragging, handleMove]);
 
   const handleTouchMove = useCallback((e) => {
-    if (e.touches && e.touches[0]) {
-      handleMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
-  }, [handleMove]);
+    if (!dragging || !e.touches[0]) return;
+    e.preventDefault();
+    handleMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, [dragging, handleMove]);
 
   useEffect(() => {
     if (dragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleEnd);
-      window.addEventListener("touchmove", handleTouchMove);
-      window.addEventListener("touchend", handleEnd);
+      window.addEventListener("mousemove", handleMouseMove, { passive: false });
+      window.addEventListener("mouseup", handleEnd, { passive: false });
+      window.addEventListener("touchmove", handleTouchMove, { passive: false });
+      window.addEventListener("touchend", handleEnd, { passive: false });
     } else {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleEnd);
@@ -77,11 +81,15 @@ const VirtualJoyStick = ({ onMove, initialPosition = { x: 0, y: 0 } }) => {
   }, [dragging, handleMouseMove, handleTouchMove, handleEnd]);
 
   return (
-    <div 
-      className="joystick-base" 
-      ref={baseRef} 
+    <div
+      className="joystick-base"
+      ref={baseRef}
       onMouseDown={handleStart}
-      onTouchStart={handleStart}
+      onTouchStart={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleStart(e);
+      }}
       role="slider"
       aria-valuemin="-1"
       aria-valuemax="1"
@@ -90,7 +98,9 @@ const VirtualJoyStick = ({ onMove, initialPosition = { x: 0, y: 0 } }) => {
     >
       <div
         className="joystick-handle"
-        style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+        style={{
+          transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px)`
+        }}
       />
       <div className="joystick-arrow up" aria-hidden="true">↑</div>
       <div className="joystick-arrow down" aria-hidden="true">↓</div>
