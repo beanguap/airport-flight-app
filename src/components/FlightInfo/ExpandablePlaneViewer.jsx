@@ -7,13 +7,13 @@ import './ExpandablePlaneViewer.css';
 
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  
-  // Maintain rotation state in memory (no localStorage)
+
+  // Keep rotation at (0,0) initially so the model stays in its side profile
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
 
-  // A stable, default camera position (no localStorage)
-  const cameraPosition = [-2, 0, 0];
-  
+  // Place the camera at (0,0,5) looking towards the origin
+  const cameraPosition = [0, 0, 5];
+
   const [showIndication, setShowIndication] = useState(true);
 
   const toggleExpand = () => {
@@ -21,10 +21,10 @@ const ExpandablePlaneViewer = () => {
   };
 
   const handleJoystickMove = (position) => {
-    // Map joystick position directly to rotation
+    // Update rotation based on joystick movement
     const newRotation = {
-      x: position.y,
-      y: position.x,
+      x: position.y, 
+      y: position.x
     };
     setRotation(newRotation);
   };
@@ -57,7 +57,7 @@ const ExpandablePlaneViewer = () => {
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[10, 10, 5]} intensity={1} />
-              {/* The Model receives rotation as a prop and just rotates the model accordingly */}
+              {/* The Model is rotated by default to side profile and takes rotation prop for further interaction */}
               <Model rotation={rotation} />
             </Suspense>
           </Canvas>
