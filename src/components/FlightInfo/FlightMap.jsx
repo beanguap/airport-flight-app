@@ -89,7 +89,8 @@ CesiumMap.propTypes = {
 };
 
 const FlightMap = () => {
-  const [map1Expanded, setMap1Expanded] = useState(true);
+  // Keep departure map toggled closed initially
+  const [map1Expanded, setMap1Expanded] = useState(false);
   const [map2Expanded, setMap2Expanded] = useState(false);
 
   useEffect(() => {

@@ -1,9 +1,8 @@
-/* FlightMap.css */
 :root {
-    --primary-color: #ff9500; /* Replaced with the vibrant orange */
-    --background-color: #121212; /* Replaced with the dark background */
-    --text-color: #e0e0e0; /* Replaced with the light gray for text */
-    --card-background: #1e1e1e; /* Replaced with the toolbar container background color */
+    --primary-color: #ff9500; /* Vibrant orange */
+    --background-color: #121212; /* Dark background */
+    --text-color: #e0e0e0; /* Light gray text */
+    --card-background: #1e1e1e; /* Toolbar/container background */
     --border-radius: 20px; 
     --spacing: 20px;
     --transition: all 0.3s ease;
@@ -22,20 +21,27 @@ body {
     padding: var(--spacing);
     max-width: 1200px;
     margin: 0 auto;
-    height: 100vh;
-    margin-top: 60px; /* Adjust this value to match the height of your navbar */
+    /* Adjusting the height logic:
+       We assume a 60px navbar above. 
+       This calculates remaining viewport height. */
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    /* Ensure .flight-map itself takes up space so .map-container can expand */
 }
 
 .map-container {
     background-color: var(--card-background);
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Updated shadow to match the box-shadow style */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column; /* Ensure cesium-container takes remaining space */
 }
 
 .map-container.expanded {
     flex-grow: 1;
+    min-height: 400px; /* Ensure there's always enough space to display the globe */
 }
 
 .map-container.shrunk {
@@ -44,7 +50,7 @@ body {
 
 .cesium-container {
     width: 100%;
-    height: 100%;
+    height: 100%; /* This will fill the parent's available space */
 }
 
 .map-header {
@@ -53,7 +59,7 @@ body {
     align-items: center;
     padding: 10px var(--spacing);
     background-color: var(--primary-color);
-    color: var(--text-color); /* Replaced white with the light gray text */
+    color: var(--text-color);
 }
 
 .map-title {
@@ -65,7 +71,7 @@ body {
 .toggle-button {
     background: none;
     border: none;
-    color: var(--text-color); /* Replaced white with the light gray text */
+    color: var(--text-color);
     cursor: pointer;
     font-size: 1.2em;
     transition: var(--transition);
@@ -77,7 +83,7 @@ body {
 
 @media (max-width: 768px) {
     .flight-map {
-        height: auto;
+        height: auto; /* For smaller screens, let it adjust naturally */
     }
 
     .map-container.shrunk {

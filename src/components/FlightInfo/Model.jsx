@@ -10,23 +10,24 @@ export default function Model() {
   useEffect(() => {
     if (!modelRef.current) return;
 
-    // 1. Rotate the model to show a side profile.
-    //    If the plane's nose originally points along +Z, this rotation makes it point along +X.
-    modelRef.current.rotation.set(0, Math.PI / 2, 0);
+    requestAnimationFrame(() => {
+      // Rotate to show side profile
+      modelRef.current.rotation.set(0, Math.PI / 2, 0);
 
-    // 2. Apply a fixed scale so the model is a reasonable size.
-    modelRef.current.scale.set(0.01, 0.01, 0.01);
+      // Scale the model
+      modelRef.current.scale.set(0.01, 0.01, 0.01);
 
-    // 3. Compute the bounding box and center the model.
-    const box = new THREE.Box3().setFromObject(modelRef.current);
-    const center = box.getCenter(new THREE.Vector3());
-    modelRef.current.position.sub(center);
+      // Center the model
+      const box = new THREE.Box3().setFromObject(modelRef.current);
+      const center = box.getCenter(new THREE.Vector3());
+      modelRef.current.position.sub(center);
 
-    // 4. If using OrbitControls, ensure it looks at the model center.
-    if (controlsRef.current) {
-      controlsRef.current.target.set(0, 0, 0);
-      controlsRef.current.update();
-    }
+      // Update OrbitControls target
+      if (controlsRef.current) {
+        controlsRef.current.target.set(0, 0, 0);
+        controlsRef.current.update();
+      }
+    });
   }, []);
 
   return (

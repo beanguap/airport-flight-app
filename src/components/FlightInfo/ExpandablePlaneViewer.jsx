@@ -8,10 +8,10 @@ import './ExpandablePlaneViewer.css';
 const ExpandablePlaneViewer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Keep rotation at (0,0) initially so the model stays in its side profile
+  // Keep rotation at (0,0) initially so the model stays in its side profile view
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
 
-  // Place the camera at (0,0,5) looking towards the origin
+  // Camera positioned along the Z-axis for a side-on view
   const cameraPosition = [0, 0, 5];
 
   const [showIndication, setShowIndication] = useState(true);
@@ -21,9 +21,8 @@ const ExpandablePlaneViewer = () => {
   };
 
   const handleJoystickMove = (position) => {
-    // Update rotation based on joystick movement
     const newRotation = {
-      x: position.y, 
+      x: position.y,
       y: position.x
     };
     setRotation(newRotation);
@@ -52,12 +51,12 @@ const ExpandablePlaneViewer = () => {
           <h2 className="title">Flight Tracker</h2>
         </div>
 
-        <div className="plane-model">
-          <Canvas camera={{ position: cameraPosition, fov: 50 }}>
+        <div className="plane-model" style={{ position: 'relative', flex: '1' }}>
+          <Canvas camera={{ position: cameraPosition, fov: 50, near: 0.1, far: 1000 }}>
             <Suspense fallback={null}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[10, 10, 5]} intensity={1} />
-              {/* The Model is rotated by default to side profile and takes rotation prop for further interaction */}
+              {/* Model should be rotated to side profile in Model.jsx and centered after it loads */}
               <Model rotation={rotation} />
             </Suspense>
           </Canvas>
