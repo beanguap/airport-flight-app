@@ -3,6 +3,8 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
+Keep Up With Development: https://x.com/pybeancoder/status/1836847753433076093?s=46
+
 Airport-Flight-App is a cutting-edge React + Vite application designed to revolutionize your travel experience. Seamlessly manage your luggage across multiple trips, access real-time weather updates, and discover nearby airports - all within a visually stunning 3D interface.
 
 ![Airport-Flight-App Interface](https://raw.githubusercontent.com/beanguap/airport-flight-app/master/src/assets/FlightAppCover.jpg)
