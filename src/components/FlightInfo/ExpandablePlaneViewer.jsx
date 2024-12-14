@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
-import VirtualJoyStick from "./VirtualJoyStick/VirtualJoyStick";
+import VirtualJoyStick from "../VirtualJoyStick/VirtualJoyStick";
 import Model from "./Model";
 import './ExpandablePlaneViewer.css';
 
