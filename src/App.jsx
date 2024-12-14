@@ -4,7 +4,6 @@ import FlightTrackerPage from "./Pages/FlightTrackerPage.jsx";
 import LuggagePage from "./Pages/LuggagePage.jsx";
 import PassportPage from "./Pages/PassportPage.jsx";
 import NavBar from "./components/NavBar/NavBar.jsx";
-import "./components/FlightInfo/FlightTracker.css";
 import "./App.css";
 
 function App() {

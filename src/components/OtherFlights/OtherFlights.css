@@ -1,0 +1,49 @@
+/* filepath: /Users/jerielmartinez/airport-flight-app/src/components/OtherFlights/OtherFlights.css */
+.other-flights-container {
+    max-width: 600px;
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #E0E0E0;
+    margin: 20px auto;
+  }
+  
+  .other-flights-container h3 {
+    color: #FF9500;
+    margin-bottom: 20px;
+  }
+  
+  .other-flight-item {
+    background-color: #2E2E2E;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .flight-info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .label {
+    font-weight: bold;
+    color: #FF9500;
+  }
+  
+  .value {
+    color: #E0E0E0;
+  }
+  
+  .status-on time {
+    color: green;
+  }
+  
+  .status-delayed {
+    color: red;
+  }
+  
+  .status-canceled {
+    color: gray;
+  }

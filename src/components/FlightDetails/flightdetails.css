@@ -1,81 +1,128 @@
 .flight-details-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1E1E1E; /* Darker background for a modern look */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Slightly more prominent shadow */
+  font-family: Arial, sans-serif;
+  color: #E0E0E0; /* Light text for better contrast */
+}
+
+/* filepath: /Users/jerielmartinez/airport-flight-app/src/components/FlightInfo/FlightTracker.css */
+.flight-details-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.flight-details-wrapper > div {
+  flex: 1;
+  margin: 10px;
+}
+
+.flight-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.airline-logo {
+  width: 80px; /* Smaller size for a more compact appearance */
+  height: 40px;
+  border-radius: 10%; /* Reduced rounding for a modern look */
+}
+
+.airline-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #FF9500; /* Match accent color */
+}
+
+.flight-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.flight-info-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1em;
+  background-color: #2E2E2E; /* Darker container for individual items */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for item separation */
+}
+
+.label {
+  font-weight: bold;
+  color: #FF9500; /* Accent color for labels */
+}
+
+.value {
+  color: #E0E0E0; /* Light text for values */
+}
+
+.status-on-time {
+  color: green;
+}
+
+.status-delayed {
+  color: red;
+}
+
+.status-canceled {
+  color: gray;
+}
+
+@media (max-width: 768px) {
+  .flight-details-container {
+    padding: 15px;
   }
-  
-  .flight-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+
+  .airline-logo {
+    width: 60px; /* Adjusted size for smaller screens */
+    height: 30px;
   }
-  
+
+  .airline-name {
+    font-size: 1.3em;
+  }
+
+  .flight-info-item {
+    font-size: 0.9em;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .flight-details-container {
+    padding: 10px;
+    margin: 10px;
+  }
+
   .airline-logo {
     width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    height: 25px;
   }
-  
+
   .airline-name {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
+    font-size: 1.2em;
   }
-  
+
+  .flight-info-item {
+    font-size: 0.9em;
+    padding: 8px;
+  }
+
   .flight-info {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
   }
-  
-  .flight-info-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1em;
+
+  .flight-header {
+    gap: 10px;
+    margin-bottom: 15px;
   }
-  
-  .label {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .value {
-    color: #333;
-  }
-  
-  .status-on-time {
-    color: green;
-  }
-  
-  .status-delayed {
-    color: red;
-  }
-  
-  .status-canceled {
-    color: gray;
-  }
-  
-  @media (max-width: 768px) {
-    .flight-details-container {
-      padding: 15px;
-    }
-  
-    .airline-logo {
-      width: 40px;
-      height: 40px;
-    }
-  
-    .airline-name {
-      font-size: 1.2em;
-    }
-  
-    .flight-info-item {
-      font-size: 0.9em;
-    }
-  }
-  
+}
