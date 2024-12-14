@@ -1,4 +1,3 @@
-import React from "react";
 import "./OtherFlights.css";
 
 const OtherFlights = ({ flights }) => {

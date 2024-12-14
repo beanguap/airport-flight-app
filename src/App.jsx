@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Pages/Home/HomePage.jsx";
-import FlightTrackerPage from "./Pages/FlightTrackerPage.jsx";
+import FlightTrackerPage from "./Pages/FlightTrackerPage/FlightTrackerPage.jsx";
 import LuggagePage from "./Pages/LuggagePage.jsx";
 import PassportPage from "./Pages/PassportPage.jsx";
 import NavBar from "./components/NavBar/NavBar.jsx";

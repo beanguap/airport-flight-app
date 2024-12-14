@@ -1,16 +1,18 @@
+/* Add spacing between the top and the first container */
 .viewer-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 30vh;
   padding: 2rem;
-  background: #e0e0e0; /* Replaced with the dark background */
+  background: #121212; /* Replaced with the dark background */
 }
 
 .expandable-plane-viewer {
+  margin-top: 1.5rem; /* Adds space above the container */
   width: 100%;
   position: relative;
-  background: #555555; /* Replaced with the toolbar container background */
+  background: #555555; /* Toolbar container background */
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Consistent shadow */
   overflow: hidden;
@@ -19,49 +21,50 @@
   margin: 0 20px;
 }
 
+/* Align title and button */
 .header {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Adjusts alignment of title and button */
   align-items: center;
   padding: 1rem;
-  background: #1e1e1e; /* Replaced with the toolbar container background */
+  background: #1e1e1e; /* Toolbar container background */
   border-bottom: 1px solid #555555; /* Consistent medium gray for borders */
 }
 
+/* Ensure title stays aligned */
 .title {
   margin: 0;
   font-size: 1.5rem;
-  color: #e0e0e0; /* Replaced with light gray text */
+  color: #e0e0e0; /* Light gray text */
   font-weight: 600;
 }
 
+/* Adjust button size for mobile */
 .expand-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 100px;
-  height: 40px;
-  border-radius: 10%;
-  background: #ff9500; /* Replaced with vibrant orange */
+  position: relative;
+  width: 80px; /* Smaller width */
+  height: 35px; /* Smaller height */
+  border-radius: 8%; /* Subtle rounded corners */
+  background: #ff9500; /* Vibrant orange */
   color: #e0e0e0; /* Light gray text for better contrast */
   border: none;
   cursor: pointer;
 }
 
 .expand-button:hover {
-  background: #555555; /* Replaced with the medium gray for hover effect */
+  background: #555555; /* Medium gray for hover effect */
 }
 
 .joystick-container {
   display: flex;
   flex-direction: column; /* Stack items vertically */
-  align-items: center;    /* Center items horizontally */
+  align-items: center; /* Center items horizontally */
   margin-top: 1rem;
 }
 
 .joystick-indication {
-  margin-top: 0.5rem;     /* Space between joystick and indicator */
+  margin-top: 0.5rem; /* Space between joystick and indicator */
   color: #e0e0e0; /* Light gray text for readability */
   font-size: 1rem;
   text-align: center;
@@ -74,13 +77,25 @@
   to { opacity: 0; }
 }
 
+/* Media query for better mobile alignment */
 @media (max-width: 768px) {
   .viewer-wrapper {
-    padding: 0;
+    padding: 1rem 0; /* Adds padding on mobile */
   }
-  
+
   .expandable-plane-viewer {
     width: 100% !important;
     border-radius: 0;
+  }
+
+  .header {
+    flex-direction: row; /* Ensure proper alignment on smaller screens */
+    justify-content: space-between; /* Space out the elements */
+  }
+
+  .expand-button {
+    width: 70px; /* Further smaller for mobile */
+    height: 30px;
+    font-size: 0.8rem; /* Adjust text size */
   }
 }
