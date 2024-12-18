@@ -1,100 +1,99 @@
-import { useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import "./PassportStats.css";
+import  { useState } from 'react';
+import Draggable from 'react-draggable';
+import './PassportStats.css';
 
-const ItemTypes = {
-  STICKER: "sticker",
-};
-
-const Sticker = ({ src, index, moveSticker }) => {
-  const [, ref] = useDrag({
-    type: ItemTypes.STICKER,
-    item: { index },
-  });
-
-  const [, drop] = useDrop({
-    accept: ItemTypes.STICKER,
-    hover: (draggedItem) => {
-      if (draggedItem.index !== index) {
-        moveSticker(draggedItem.index, index);
-        draggedItem.index = index;
-      }
-    },
-  });
+const Sticker = ({ sticker, index, updateStickerPosition }) => {
+  const handleStop = (e, data) => {
+    updateStickerPosition(index, data.x, data.y);
+  };
 
   return (
-    <div ref={(node) => ref(drop(node))} className="sticker-item">
-      <img src={src} alt={`Sticker ${index}`} className="sticker-image" />
-    </div>
+    <Draggable
+      position={{ x: sticker.left, y: sticker.top }}
+      onStop={handleStop}
+    >
+      <img
+        src={sticker.src}
+        alt={`Sticker ${index}`}
+        className="sticker"
+      />
+    </Draggable>
   );
 };
 
-const PassportStats = () => {
+const Passport = () => {
   const [stickers, setStickers] = useState([]);
-  const [route, setRoute] = useState({ from: "MIA", to: "LAX" });
+  const [travelStats] = useState({
+    flights: 0,
+    distance: '0 km',
+    flightTime: '0h',
+    airports: 0,
+    airlines: 0,
+  });
 
   const handleStickerUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setStickers([...stickers, { name: file.name, src: reader.result }]);
+        const newSticker = {
+          src: reader.result,
+          left: 50,
+          top: 50,
+        };
+        setStickers([...stickers, newSticker]);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const moveSticker = (fromIndex, toIndex) => {
+  const updateStickerPosition = (index, left, top) => {
     const updatedStickers = [...stickers];
-    const [movedSticker] = updatedStickers.splice(fromIndex, 1);
-    updatedStickers.splice(toIndex, 0, movedSticker);
+    updatedStickers[index] = { ...updatedStickers[index], left, top };
     setStickers(updatedStickers);
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="passport-stats">
-        <div className="passport">
-          <h2>Passport</h2>
-
-          {/* Flight Stats */}
-          <div className="passport-stats-info">
-            <div className="stat-item">Flights: 12</div>
-            <div className="stat-item">Distance: 24,500 km</div>
-            <div className="stat-item">Flight Time: 30h</div>
-            <div className="stat-item">Airports: 5</div>
-            <div className="stat-item">Airlines: 3</div>
+    <div className="passport-container">
+      <div className="passport">
+        <div className="passport-stats-info">
+          <div className="stat-item">
+            <h3>Flights</h3>
+            <p>{travelStats.flights}</p>
           </div>
-
-          {/* Route Information */}
-          <div className="route-info">
-            <h3>Route:</h3>
-            <p>
-              {route.from} → {route.to}
-            </p>
+          <div className="stat-item">
+            <h3>Distance</h3>
+            <p>{travelStats.distance}</p>
           </div>
-
-          {/* Display stickers on the passport */}
-          <div className="passport-stickers">
-            {stickers.map((sticker, index) => (
-              <Sticker
-                key={index}
-                index={index}
-                src={sticker.src}
-                moveSticker={moveSticker}
-              />
-            ))}
+          <div className="stat-item">
+            <h3>Flight Time</h3>
+            <p>{travelStats.flightTime}</p>
+          </div>
+          <div className="stat-item">
+            <h3>Airports</h3>
+            <p>{travelStats.airports}</p>
+          </div>
+          <div className="stat-item">
+            <h3>Airlines</h3>
+            <p>{travelStats.airlines}</p>
           </div>
         </div>
-
-        {/* Sticker Input */}
-        <div className="sticker-input">
-          <input type="file" accept="image/*" onChange={handleStickerUpload} />
+        <div className="passport-stickers">
+          {stickers.map((sticker, index) => (
+            <Sticker
+              key={index}
+              index={index}
+              sticker={sticker}
+              updateStickerPosition={updateStickerPosition}
+            />
+          ))}
         </div>
       </div>
-    </DndProvider>
+      <div className="sticker-input">
+        <input type="file" accept="image/*" onChange={handleStickerUpload} />
+      </div>
+    </div>
   );
 };
 
-export default PassportStats;
+export default Passport;
