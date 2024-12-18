@@ -1,21 +1,24 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import Draggable from 'react-draggable';
 import './PassportStats.css';
 
 const Sticker = ({ sticker, index, updateStickerPosition }) => {
-  const handleStop = (e, data) => {
+  const handleDrag = (e, data) => {
     updateStickerPosition(index, data.x, data.y);
   };
 
   return (
     <Draggable
       position={{ x: sticker.left, y: sticker.top }}
-      onStop={handleStop}
+      onDrag={handleDrag}
+      bounds="parent"
     >
       <img
         src={sticker.src}
         alt={`Sticker ${index}`}
         className="sticker"
+        role="img"
+        aria-label={`Sticker ${index}`}
       />
     </Draggable>
   );

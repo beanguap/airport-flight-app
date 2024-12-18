@@ -59,7 +59,15 @@
     border: 2px solid #fff; /* White border for sticker look */
     border-radius: 8px;
     cursor: grab;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: rotate(-5deg);
+    background-color: #fff;
+  }
+  
+  .sticker:hover {
+    transform: scale(1.05) rotate(-5deg);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
   
   .sticker:active {
