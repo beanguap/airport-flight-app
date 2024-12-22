@@ -1,0 +1,41 @@
+.flipbook-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-turner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 100%);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.page-turner:hover {
+  opacity: 1;
+}
+
+.page-turner.left {
+  left: 0;
+  transform: rotate(180deg);
+}
+
+.page-turner.right {
+  right: 0;
+}
+
+.page-turner-icon {
+  width: 24px;
+  height: 24px;
+  border-right: 3px solid #666;
+  border-bottom: 3px solid #666;
+  transform: rotate(-45deg);
+}

@@ -1,28 +1,39 @@
 // src/components/PageFlipBook.jsx
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 
-/**
- * This component wraps the react-pageflip library to create a "book-like" UI.
- * We forward a ref so we can control the flipbook from a parent component if desired (e.g., turn pages programmatically).
- */
 const PageFlipBook = forwardRef(({ children, width, height }, ref) => {
   return (
-    <HTMLFlipBook
-      width={width}
-      height={height}
-      minWidth={315}
-      maxWidth={2000}
-      minHeight={400}
-      maxHeight={2500}
-      drawShadow={true}
-      showCover={false}
-      mobileScrollSupport={false}
-      ref={ref}
-      className="flipbook-container"
-    >
-      {children}
-    </HTMLFlipBook>
+    <div className="flipbook-outer-wrapper">
+      <div className="flipbook-wrapper">
+        <HTMLFlipBook
+          width={width}
+          height={height}
+          // ...
+          ref={ref} // attach ref here
+          mobileScrollSupport={true}
+          useMouseEvents={true}
+        >
+          {children}
+        </HTMLFlipBook>
+      </div>
+
+      {/* Page turn buttons */}
+      <button
+        className="page-turner left"
+        onClick={() => ref.current?.pageFlip().flipPrev()}
+        aria-label="Previous page"
+      >
+        <div className="page-turner-icon" />
+      </button>
+      <button
+        className="page-turner right"
+        onClick={() => ref.current?.pageFlip().flipNext()}
+        aria-label="Next page"
+      >
+        <div className="page-turner-icon" />
+      </button>
+    </div>
   );
 });
 

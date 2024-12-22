@@ -1,4 +1,5 @@
-import { QRCodeSVG } from 'qrcode.react';  // Change import to use named import
+import { useState, useEffect } from 'react'; // Add missing import
+import { QRCodeSVG } from 'qrcode.react';
 import './QrModal.css';
 
 const QrModal = ({ isOpen, onClose, flight }) => {
@@ -10,7 +11,7 @@ const QrModal = ({ isOpen, onClose, flight }) => {
     <div className="qr-modal-backdrop" onClick={onClose}>
       <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
         <h2>Flight QR Code</h2>
-        <QRCodeSVG  // Changed from QRCode to QRCodeSVG
+        <QRCodeSVG
           value={qrValue}
           size={180}
           level="H"
