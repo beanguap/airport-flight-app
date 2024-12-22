@@ -1,51 +1,98 @@
 .navbar {
     position: fixed;
-    top: 90.5%;
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 42%;
-    padding: 10px 20px;
-    background-color: #333;
+    width: clamp(320px, 42%, 600px);
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(51, 51, 51, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition:
-        background-color 0.3s ease,
-        box-shadow 0.3s ease;
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
 }
 
-.navbar:hover {
-    background-color: #444;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+.nav-item-container {
+    position: relative;
+    min-width: 64px;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
 }
 
 .nav-icon {
-    color: white;
-    font-size: 24px;
+    position: relative;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
     text-decoration: none;
-    padding: 10px;
-    transition:
-        color 0.3s ease,
-        transform 0.3s ease;
+    padding: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-icon:hover {
     color: #ffcc00;
-    transform: scale(1.2);
 }
 
-/* Media query for mobile view */
+.nav-icon:focus-visible {
+    outline: 2px solid #ffcc00;
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+.active-indicator {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 3px;
+    background-color: #ffcc00;
+    border-radius: 1.5px;
+}
+
+.tooltip {
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Remove loading-shimmer class and related styles */
+
 @media (max-width: 768px) {
     .navbar {
-        width: 90%; /* Adjust width to fit mobile screens */
-        padding: 10px 10px; /* Adjust padding for mobile screens */
+        width: 90%;
+        padding: 0.5rem 1rem;
     }
 
     .nav-icon {
-        font-size: 20px; /* Adjust icon size for mobile screens */
-        padding: 8px; /* Adjust padding for mobile screens */
+        font-size: 1.25rem;
+        padding: 0.625rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navbar,
+    .nav-icon,
+    .active-indicator {
+        transition: none;
     }
 }
