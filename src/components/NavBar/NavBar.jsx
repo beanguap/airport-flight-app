@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "./NavBar.css";
+
 import flightIcon from "../../assets/icons/flight.svg";
 import homeIcon from "../../assets/icons/home.svg";
 import luggageIcon from "../../assets/icons/luggage.svg";
@@ -10,11 +11,11 @@ import passportIcon from "../../assets/icons/passport.svg";
 const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipItem, setTooltipItem] = useState(null);
 
+  // Define all nav items
   const navItems = [
     { to: "/flight-tracker", icon: <img src={flightIcon} alt="Flight" />, label: "Flight" },
     { to: "/", icon: <img src={homeIcon} alt="Home" />, label: "Home" },
@@ -22,7 +23,7 @@ const NavBar = () => {
     { to: "/passport", icon: <img src={passportIcon} alt="Passport" />, label: "Passport" },
   ];
 
-  // Handle scroll behavior
+  // Hide/show navbar on scroll
   useEffect(() => {
     let lastScroll = 0;
     const navbar = document.querySelector(".navbar");
@@ -41,27 +42,21 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle keyboard navigation
+  // Keyboard nav: left/right arrows to switch pages
   useEffect(() => {
     const handleKeyboard = (e) => {
       const currentIndex = navItems.findIndex(item => item.to === location.pathname);
-      
       if (e.key === "ArrowRight" && currentIndex < navItems.length - 1) {
         navigate(navItems[currentIndex + 1].to);
       } else if (e.key === "ArrowLeft" && currentIndex > 0) {
         navigate(navItems[currentIndex - 1].to);
       }
     };
-
     window.addEventListener("keydown", handleKeyboard);
     return () => window.removeEventListener("keydown", handleKeyboard);
   }, [location.pathname, navigate, navItems]);
 
-  const handleNavClick = useCallback(() => {
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 400);
-  }, []);
-
+  // Swipe left/right to navigate
   const handleTouchStart = (e) => {
     setTouchStart(e.touches[0].clientX);
   };
@@ -71,7 +66,7 @@ const NavBar = () => {
     const diff = touchStart - touchEnd;
     const currentIndex = navItems.findIndex(item => item.to === location.pathname);
 
-    if (Math.abs(diff) > 50) { // Minimum swipe distance
+    if (Math.abs(diff) > 50) { 
       if (diff > 0 && currentIndex < navItems.length - 1) {
         navigate(navItems[currentIndex + 1].to);
       } else if (diff < 0 && currentIndex > 0) {
@@ -80,12 +75,12 @@ const NavBar = () => {
     }
   };
 
+  // Tooltip on hover
   const handleHover = (item) => {
     const timer = setTimeout(() => {
       setTooltipItem(item);
       setShowTooltip(true);
     }, 500);
-
     return () => clearTimeout(timer);
   };
 
@@ -97,26 +92,32 @@ const NavBar = () => {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <AnimatePresence >
+      <AnimatePresence>
         {navItems.map((item) => {
+          // Check if this nav item is the current route
           const isActive = location.pathname === item.to;
+
           return (
             <motion.div
               key={item.to}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 1.02 }}
               className="nav-item-container"
+              // A subtle hover scale on desktop
+              whileHover={{ scale: 1.05 }}
               onMouseEnter={() => handleHover(item)}
               onMouseLeave={() => setShowTooltip(false)}
             >
               <Link
                 to={item.to}
                 className={`nav-icon ${isActive ? "active" : ""}`}
-                onClick={handleNavClick}
                 aria-current={isActive ? "page" : undefined}
                 aria-label={item.label}
               >
                 {item.icon}
+
+                {/* Active indicator under icon */}
+                {isActive && <div className="active-indicator" />}
+
+                {/* Tooltip on hover */}
                 {showTooltip && tooltipItem === item && (
                   <motion.span
                     className="tooltip"
@@ -128,24 +129,6 @@ const NavBar = () => {
                   </motion.span>
                 )}
               </Link>
-              {isActive && (
-                <motion.div
-                  className="active-indicator"
-                  layoutId="activeIndicator"
-                  transition={{ 
-                    duration: 0.3, 
-                    ease: [0.4, 0, 0.2, 1]
-                  }}
-                />
-              )}
-              {isLoading && (
-                <motion.div 
-                  className="loading-shimmer"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "100%" }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                />
-              )}
             </motion.div>
           );
         })}

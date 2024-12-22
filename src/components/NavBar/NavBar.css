@@ -12,18 +12,13 @@
     backdrop-filter: blur(10px);
     border-radius: 50px;
     box-shadow: 
-        0 4px 8px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      0 4px 8px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-}
-
-.navBar .icon {
-    color: #ffcc00;
-    font-size: 24px;
   }
-
-.nav-item-container {
+  
+  .nav-item-container {
     position: relative;
     min-width: 64px;
     max-width: 200px;
@@ -31,73 +26,76 @@
     justify-content: center;
     align-items: center;
     padding: 0.5rem 0;
-}
-
-.nav-icon {
-    position: relative;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.5rem;
-    text-decoration: none;
-    padding: 0.75rem;
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  
+  .nav-icon {
+    position: relative; /* for active-indicator positioning */
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.nav-icon:hover {
-    color: #ffcc00;
-}
-
-.nav-icon:focus-visible {
-    outline: 2px solid #ffcc00;
-    outline-offset: 4px;
-    border-radius: 8px;
-}
-
-.active-indicator {
+    text-decoration: none;
+    padding: 0.75rem;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Force SVGs to be the same size & appear white */
+  .nav-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+  
+  /* --- ACTIVE (When route matches) => Glow permanently --- */
+  .nav-icon.active {
+    box-shadow: 0 0 20px #ff9500; /* keep glowing in #ff9500 */
+    border-radius: 50%;
+  }
+  
+  /* The line under the icon if active */
+  .active-indicator {
     position: absolute;
-    bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
+    bottom: -12px; 
     width: 24px;
     height: 3px;
-    background-color: #ffcc00;
+    background-color: #ff9500;
     border-radius: 1.5px;
-}
-
-.tooltip {
+  }
+  
+  /* Tooltip styling */
+  .tooltip {
     position: absolute;
     top: -2.5rem;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.8);
-    color: white;
+    color: #fff;
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
     font-size: 0.875rem;
     white-space: nowrap;
     pointer-events: none;
-}
-
-/* Remove loading-shimmer class and related styles */
-
-@media (max-width: 768px) {
+  }
+  
+  /* Make sure the nav bar is still responsive */
+  @media (max-width: 768px) {
     .navbar {
-        width: 90%;
-        padding: 0.5rem 1rem;
+      width: 90%;
+      padding: 0.5rem 1rem;
     }
-
+  
     .nav-icon {
-        font-size: 1.25rem;
-        padding: 0.625rem;
+      padding: 0.625rem;
     }
-}
-
-@media (prefers-reduced-motion: reduce) {
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
     .navbar,
     .nav-icon,
-    .active-indicator {
-        transition: none;
+    .active-indicator,
+    .tooltip {
+      transition: none;
     }
-}
+  }
+  

@@ -21,6 +21,7 @@
   }
   
   .flipbook-container {
+    
     /* Let the container shrink to the parent's width */
     width: 100% !important;
     height: auto !important; 
