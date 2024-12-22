@@ -1,41 +1,65 @@
-.flipbook-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.page-turner {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 100%);
-  transition: all 0.3s ease;
-  opacity: 0;
-}
-
-.page-turner:hover {
-  opacity: 1;
-}
-
-.page-turner.left {
-  left: 0;
-  transform: rotate(180deg);
-}
-
-.page-turner.right {
-  right: 0;
-}
-
-.page-turner-icon {
-  width: 24px;
-  height: 24px;
-  border-right: 3px solid #666;
-  border-bottom: 3px solid #666;
-  transform: rotate(-45deg);
-}
+.flipbook-outer-wrapper {
+    position: relative;
+    margin-top: 50px; /* Space from top of webpage */
+    display: flex;
+    justify-content: center;
+    /* Ensure the outer wrapper can shrink on mobile */
+    width: 100%;
+    
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .flipbook-wrapper {
+    position: relative;
+    border-radius: 5%;
+    z-index: 1;
+    /* Force the flipbook to also fit within the parent */
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; 
+  }
+  
+  .flipbook-container {
+    /* Let the container shrink to the parent's width */
+    width: 100% !important;
+    height: auto !important; 
+    /* This ensures the flipbook scales proportionally 
+       rather than cutting off on mobile. */
+  }
+  
+  /* Page turn buttons */
+  .page-turner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 100%);
+    opacity: 0.3;
+    transition: all 0.3s ease;
+    z-index: 10;
+    border: none;
+    outline: none;
+  }
+  .page-turner:hover {
+    opacity: 0.9;
+  }
+  .page-turner.left {
+    left: 0;
+    transform: rotate(180deg);
+  }
+  .page-turner.right {
+    right: 0;
+  }
+  .page-turner-icon {
+    width: 24px;
+    height: 24px;
+    border-right: 3px solid #666;
+    border-bottom: 3px solid #666;
+    transform: rotate(-45deg);
+  }
+  

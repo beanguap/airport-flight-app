@@ -1,19 +1,18 @@
 // src/pages/PassportStats.jsx
-import { useState, useEffect } from 'react';
-import PageFlipBook from './PageFlipBook';
+import React, { useState, useEffect, useRef } from 'react';
+import PageFlipBook from './PageFlipBook'; // Adjust path if needed
 import QrModal from './QrModal';
 import Sticker from './Sticker';
 import StickerGallery from './StickerGallery';
 import WorldMap from './WorldMap';
 import './PassportStats.css';
 
-/**
- * Example passport stats page that demonstrates multi-page flipping,
- * sticker gallery, and more.
- */
 const PassportStats = () => {
-  // We keep the flight data, trips, stickers in state
-  const [currentFlight, setCurrentFlight] = useState({
+  // Create a ref for the flipbook
+  const flipBookRef = useRef(null);
+
+  // Current flight
+  const [currentFlight] = useState({
     departureAirport: 'JFK',
     destinationAirport: 'LAX',
     airline: 'Delta Airlines',
@@ -26,6 +25,7 @@ const PassportStats = () => {
     seat: '12B',
   });
 
+  // Past trips
   const [pastTrips, setPastTrips] = useState([
     {
       date: '2023-09-15',
@@ -45,7 +45,10 @@ const PassportStats = () => {
     },
   ]);
 
+  // Stickers
   const [stickers, setStickers] = useState([]);
+
+  // Travel stats
   const [travelStats, setTravelStats] = useState({
     flights: 10,
     distance: '25,000 km',
@@ -54,20 +57,19 @@ const PassportStats = () => {
     airlines: 5,
   });
 
-  // For the sticker gallery
+  // Sticker gallery
   const galleryStickers = [
     '/images/flag-usa.png',
     '/images/flag-uk.png',
     '/images/flag-japan.png',
     '/images/airline-delta.png',
     '/images/airline-united.png',
-    // ...Add your own!
   ];
 
-  // QR Modal state
+  // QR modal
   const [qrOpen, setQrOpen] = useState(false);
 
-  // Load data from localStorage on mount
+  // Load from localStorage on mount
   useEffect(() => {
     const storedTrips = localStorage.getItem('pastTrips');
     const storedStickers = localStorage.getItem('stickers');
@@ -78,7 +80,7 @@ const PassportStats = () => {
     if (storedStats) setTravelStats(JSON.parse(storedStats));
   }, []);
 
-  // Save data to localStorage whenever changes happen
+  // Save to localStorage
   useEffect(() => {
     localStorage.setItem('pastTrips', JSON.stringify(pastTrips));
   }, [pastTrips]);
@@ -91,11 +93,9 @@ const PassportStats = () => {
     localStorage.setItem('travelStats', JSON.stringify(travelStats));
   }, [travelStats]);
 
-  /**
-   * Handle uploading a new sticker (user file).
-   */
-  const handleStickerUpload = (event) => {
-    const file = event.target.files[0];
+  // Upload new sticker
+  const handleStickerUpload = (e) => {
+    const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
@@ -113,9 +113,7 @@ const PassportStats = () => {
     reader.readAsDataURL(file);
   };
 
-  /**
-   * Add a sticker from the gallery
-   */
+  // Add sticker from gallery
   const handleSelectStickerFromGallery = (src) => {
     const newSticker = {
       src,
@@ -128,9 +126,7 @@ const PassportStats = () => {
     setStickers([...stickers, newSticker]);
   };
 
-  /**
-   * Update sticker's position or note in the state.
-   */
+  // Update sticker’s position/note
   const updateSticker = (index, newSticker) => {
     setStickers((prev) => {
       const updated = [...prev];
@@ -139,16 +135,12 @@ const PassportStats = () => {
     });
   };
 
-  /**
-   * Toggle QR Modal for the current flight
-   */
+  // Toggle QR modal
   const toggleQrModal = () => {
     setQrOpen(!qrOpen);
   };
 
-  /**
-   * Simple filtering function - searching trips by airline, route, etc.
-   */
+  // Search function
   const [searchTerm, setSearchTerm] = useState('');
   const filteredTrips = pastTrips.filter((trip) => {
     return (
@@ -160,14 +152,14 @@ const PassportStats = () => {
 
   return (
     <div className="passport-container">
-      <PageFlipBook width={800} height={600}>
-        {/* ---- Page 1 (Cover / Title) ---- */}
+      <PageFlipBook ref={flipBookRef} width={800} height={600}>
+        {/* Page 1: Cover */}
         <div className="passport-page page-cover">
           <h1>Your Digital Passport</h1>
           <p>Flip to see your flights, stickers, and more!</p>
         </div>
 
-        {/* ---- Page 2 (Current Flight Info) ---- */}
+        {/* Page 2: Current Flight Info */}
         <div className="passport-page">
           <h2>Current Flight Info</h2>
           <div className="flight-info">
@@ -187,7 +179,7 @@ const PassportStats = () => {
           </button>
         </div>
 
-        {/* ---- Page 3 (Travel History + Search) ---- */}
+        {/* Page 3: Travel History + Search */}
         <div className="passport-page">
           <h2>Travel History</h2>
           <input
@@ -210,13 +202,13 @@ const PassportStats = () => {
           </div>
         </div>
 
-        {/* ---- Page 4 (Interactive Map) ---- */}
+        {/* Page 4: World Map */}
         <div className="passport-page">
           <h2>Visited Airports</h2>
           <WorldMap trips={[...pastTrips, currentFlight]} />
         </div>
 
-        {/* ---- Page 5 (Stickers) ---- */}
+        {/* Page 5: Stickers */}
         <div className="passport-page sticker-page">
           <h2>Decorate Your Passport</h2>
           <div className="sticker-section">
@@ -236,7 +228,6 @@ const PassportStats = () => {
             />
             <p>Drag stickers anywhere on the passport!</p>
           </div>
-          {/* Stickers container with absolute positioning */}
           <div className="stickers-container">
             {stickers.map((sticker, index) => (
               <Sticker
@@ -249,7 +240,7 @@ const PassportStats = () => {
           </div>
         </div>
 
-        {/* ---- Page 6 (Travel Stats) ---- */}
+        {/* Page 6: Travel Stats */}
         <div className="passport-page">
           <h2>Your Travel Stats</h2>
           <div className="stats-list">
@@ -262,7 +253,7 @@ const PassportStats = () => {
         </div>
       </PageFlipBook>
 
-      {/* ---- QR MODAL ---- */}
+      {/* QR Modal */}
       <QrModal isOpen={qrOpen} onClose={toggleQrModal} flight={currentFlight} />
     </div>
   );
