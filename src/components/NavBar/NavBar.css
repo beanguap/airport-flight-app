@@ -18,6 +18,11 @@
     z-index: 1000;
 }
 
+.navBar .icon {
+    color: #ffcc00;
+    font-size: 24px;
+  }
+
 .nav-item-container {
     position: relative;
     min-width: 64px;
