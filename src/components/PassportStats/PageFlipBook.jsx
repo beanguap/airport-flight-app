@@ -1,5 +1,5 @@
 // src/components/PageFlipBook.jsx (or src/pages/PageFlipBook.jsx)
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import './PageFlipBook.css';
 

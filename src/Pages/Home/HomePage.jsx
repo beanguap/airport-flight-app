@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar.jsx";
 import Location from "../../components/ToolBar/Location.jsx";
 import Time from "../../components/ToolBar/CurrentTime.jsx";
 import Weather from "../../components/ToolBar/Weather.jsx";
@@ -8,7 +7,6 @@ import "./HomePage.css";
 import luggageDisplay from "../../assets/LuggageDisplay.jpg";
 import FlightTrack from "../../assets/FlightTrack.webp";
 import plane from "../../assets/plane.jpg"; // Import the plane image
-import Toolbar from "../../components/ToolBar/Toolbar.jsx";
 import { useEffect } from "react";
 
 const HomePage = () => {
@@ -82,7 +80,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <NavBar />
+
     </div>
   );
 };
