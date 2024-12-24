@@ -1,4 +1,5 @@
 // src/components/WorldMap.jsx
+import React from 'react';
 import {
   ComposableMap,
   Geographies,
@@ -6,13 +7,12 @@ import {
   Marker
 } from 'react-simple-maps';
 
-const geoUrl =
-  "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+// Use a working TopoJSON from world-atlas
+// (v2 includes the countries-110m.json file)
+const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
 const WorldMap = ({ trips }) => {
-  // You’d need lat/long for each airport. Hardcode or fetch from an API.
-  // Example data: { airport: "JFK", coordinates: [-73.7781, 40.6413] }
-  // For demonstration, assume you have a dictionary of airport codes -> coords
+  // Hardcoded dictionary of some airport IATA codes to [lng, lat]
   const airportCoordinates = {
     JFK: [-73.7781, 40.6413],
     LAX: [-118.4085, 33.9416],
@@ -20,7 +20,7 @@ const WorldMap = ({ trips }) => {
     MIA: [-80.2870, 25.7959],
   };
 
-  // Gather unique airports from trips
+  // Get unique airports
   const visitedAirports = trips.reduce((acc, trip) => {
     acc.add(trip.departureAirport);
     acc.add(trip.destinationAirport);
@@ -45,7 +45,10 @@ const WorldMap = ({ trips }) => {
 
         {Array.from(visitedAirports).map((airport) => {
           const coords = airportCoordinates[airport];
-          if (!coords) return null;
+          if (!coords) {
+            console.warn(`Coordinates not found for airport: ${airport}`);
+            return null;
+          }
           return (
             <Marker key={airport} coordinates={coords}>
               <circle r={5} fill="#F53" />

@@ -6,6 +6,7 @@
 
 /* PageFlipBook pages */
 .passport-page {
+  border-radius: 30px;
   width: 100%;
   height: 100%;
   background: #f0e6d6; /* or a texture */

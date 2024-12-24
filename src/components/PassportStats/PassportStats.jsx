@@ -1,5 +1,5 @@
 // src/pages/PassportStats.jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PageFlipBook from './PageFlipBook'; // Adjust path if needed
 import QrModal from './QrModal';
 import Sticker from './Sticker';
